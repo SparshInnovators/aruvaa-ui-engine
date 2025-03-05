@@ -33,23 +33,18 @@ import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.myproject.composeflow.Components.Design.paddingValues
-import com.myproject.composeflow.globalMap.GlobalMap
 
-//val keyboardType
-//val font_size
-//val font_weight
-//val paddings
-//val suffixIcon
 
 @Composable
 fun SingleLineInputText(
     modifier: Modifier = Modifier,
-    id: String,
     keyboardType: KeyboardType,
     font_size: Int = 22,
     fontWeight: FontWeight?,
     suffixIcon: String? = null,
-    hintText: String
+    hintText: String,
+    value: String,
+    onValueChange: (String) -> Unit
 ) {
 
     val visualTransformation = if (keyboardType == KeyboardType.Password) {
@@ -57,9 +52,6 @@ fun SingleLineInputText(
     } else {
         VisualTransformation.None
     }
-
-    var input by remember { mutableStateOf("") }
-    GlobalMap.globalMap.getOrPut(id) { input }
 
     OutlinedTextField(
         textStyle = TextStyle(
@@ -69,8 +61,8 @@ fun SingleLineInputText(
         ),
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
         visualTransformation = visualTransformation,
-        onValueChange = { input = it },
-        value = input,
+        onValueChange = onValueChange,
+        value = value,
         maxLines = 1,
         leadingIcon = {
             suffixIcon?.lowercase().let { icon ->

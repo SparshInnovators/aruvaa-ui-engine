@@ -27,11 +27,12 @@ fun TextButton(
     textColor: String,
     fontSize: Int = 20,
     fontWeight: FontWeight,
-    width: Dp? = null
+    width: Dp? = null,
+    onclick : () -> Unit
 ) {
 
     Button(
-        onClick = {},
+        onClick = onclick,
         colors = ButtonDefaults.buttonColors(
             containerColor = Color(bgColor.toColorInt()),
             contentColor = Color(textColor.toColorInt())

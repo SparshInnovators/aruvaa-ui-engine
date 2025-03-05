@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 fun BoxContainer(
     modifier: Modifier = Modifier,
     height: Dp? = null,
+    alignment: Alignment?,
     content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
@@ -32,7 +33,7 @@ fun BoxContainer(
 //                Color.Gray.copy(alpha = 0.1f),
 //                shape = RoundedCornerShape(16.dp)
 //            ),
-        ,contentAlignment = Alignment.TopStart
+        , contentAlignment = alignment ?: Alignment.TopStart
     ) {
         content()
     }

@@ -20,12 +20,16 @@ import com.myproject.composeflow.Components.Text.SubtitleText
 import com.myproject.composeflow.Components.Text.TextBlock
 import com.myproject.composeflow.Components.Text.TitleText
 import com.myproject.composeflow.Components.Text.fontWeightMap
+import com.myproject.testingframework.data
 import com.myproject.testingframework.parseJsonToKotlin
 
 @Composable
 fun UiTemplate(modifier: Modifier = Modifier) {
-    val template = parseJsonToKotlin()[0]
-    val content = parseJsonToKotlin()[1]
+
+    val context = LocalContext.current
+
+    val template = parseJsonToKotlin(data = data)[0]
+    val content = parseJsonToKotlin(data = data)[1]
 
     val name = template["name"] as String
 
@@ -44,9 +48,9 @@ fun UiTemplate(modifier: Modifier = Modifier) {
     val itemsList = template["items"] as List<Map<*, *>>
     val contentList = content["items"] as List<Map<*, *>>
 
-    val context = LocalContext.current
 
     BoxContainer(
+        alignment = null,
         height = null,
         content = {
             Column {

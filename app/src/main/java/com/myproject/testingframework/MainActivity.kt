@@ -36,6 +36,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import android.net.Uri
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import coil3.compose.AsyncImage
 import com.myproject.composeflow.Components.Container.BoxContainer
 import com.myproject.composeflow.Components.Container.HorizontalContainer
@@ -53,6 +58,7 @@ import com.myproject.composeflow.Components.Text.SubtitleText
 import com.myproject.composeflow.Components.Text.TextBlock
 import com.myproject.composeflow.Components.Text.TitleText
 import com.myproject.testingframework.screens.AuthenticationScreen
+import com.myproject.testingframework.screens.DynamicScreen
 import com.myproject.testingframework.screens.UiTemplate
 import org.jetbrains.annotations.Async
 import kotlin.math.log
@@ -61,7 +67,23 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AuthenticationScreen()
+            val navController = rememberNavController()
+//            AuthenticationScreen(NavController = navController)
+            Navigation(navController = navController)
         }
     }
 }
+
+@Composable
+fun Navigation(modifier: Modifier = Modifier, navController: NavHostController) {
+    NavHost(navController = navController, startDestination = screenList.first(), builder = {
+        composable("formScreen") {
+            AuthenticationScreen(NavController = navController)
+        }
+        composable("secondPage") {
+            DynamicScreen(screenName = "secondPage")
+        }
+    })
+}
+
+val screenList = listOf("formScreen", "secondPage")

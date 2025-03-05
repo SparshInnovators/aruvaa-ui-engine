@@ -1,11 +1,13 @@
 package com.myproject.testingframework
 
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.JsonParser
+import java.io.File
 
 
-fun parseJsonToKotlin(): List<Map<*, *>> {
-    val obj = JsonParser.parseString(formdata).asJsonObject
+fun parseJsonToKotlin(data: String): List<Map<*, *>> {
+    val obj = JsonParser.parseString(data).asJsonObject
     val gson = Gson()
 
     val template = gson.fromJson(obj.getAsJsonObject("template"), Map::class.java)

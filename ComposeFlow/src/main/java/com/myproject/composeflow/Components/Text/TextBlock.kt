@@ -21,6 +21,6 @@ fun TextBlock(text: String, modifier: Modifier = Modifier) {
         modifier = modifier.padding(horizontal = 24.dp, vertical = 8.dp),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = text, fontSize = 12.sp, color = Color.Black)
+        Text(text = text, fontSize = 16.sp, color = Color.Black)
     }
 }
