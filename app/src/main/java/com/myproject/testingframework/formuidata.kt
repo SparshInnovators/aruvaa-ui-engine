@@ -62,13 +62,15 @@ val formdata = """
           },
           {
             "type": "button",
+            "subtype":"elevated",
             "font_size": 25,
             "font_weight": "normal",
-            "action": {
-              "type": "navigate",
-              "destination": "secondPage",
-              "arguments": ""
-            },
+                "action": {
+                  "type": "dialog",
+                  "subtype":"alert",
+                  "title": "Login Successfull!!",
+                  "message": "You have successfully logged in."
+                },
             "margins": {
               "bottom": 16,
               "top": 10,
@@ -151,3 +153,10 @@ val secondpage = """
       }
     }
 """.trimIndent()
+
+
+//    "action": {
+//    "type": "alert",
+//    "title": "Login Successfull!!",
+//    "message": "You have successfully logged in."
+//},

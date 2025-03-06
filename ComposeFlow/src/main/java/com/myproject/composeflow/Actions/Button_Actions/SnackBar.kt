@@ -2,9 +2,10 @@ package com.myproject.composeflow.Actions.Button_Actions
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
-fun actionToast(
+fun ActionType_SnackBar(
     modifier: Modifier = Modifier,
     context: Context,
     message: String,

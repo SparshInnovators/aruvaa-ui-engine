@@ -9,6 +9,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
@@ -132,4 +134,6 @@ val mapStringToIcon = mapOf(
     "lock" to Icons.Outlined.Lock,
     "email" to Icons.Outlined.Email,
     "phone" to Icons.Outlined.Phone,
+    "share" to Icons.Default.Share,
+    "settings" to Icons.Default.Settings
 )

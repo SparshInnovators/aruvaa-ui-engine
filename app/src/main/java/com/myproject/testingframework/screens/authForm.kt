@@ -5,6 +5,9 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,8 +23,15 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
-import com.myproject.composeflow.Actions.Button_Actions.actionToast
-import com.myproject.composeflow.Components.Button.TextButton
+import com.myproject.composeflow.Actions.Button_Actions.ActionType_Alert
+import com.myproject.composeflow.Actions.Button_Actions.ActionType_SimpleDialog
+import com.myproject.composeflow.Actions.Button_Actions.ActionType_SnackBar
+import com.myproject.composeflow.Actions.Button_Actions.ActionType_Url
+import com.myproject.composeflow.Components.Button.ButtonElevated
+import com.myproject.composeflow.Components.Button.ButtonFilled
+import com.myproject.composeflow.Components.Button.ButtonFloatingAction
+import com.myproject.composeflow.Components.Button.ButtonIcon
+import com.myproject.composeflow.Components.Button.ButtonText
 import com.myproject.composeflow.Components.Container.BoxContainer
 import com.myproject.composeflow.Components.Container.VerticalContainer
 import com.myproject.composeflow.Components.Design.paddingValues
@@ -51,6 +61,10 @@ fun AuthenticationScreen(modifier: Modifier = Modifier, NavController: NavContro
     val templateItems = template["items"] as List<Map<*, *>>
     val contentItems = content["items"] as List<Map<*, *>>
 
+    var showalertdialog by remember { mutableStateOf(false) }
+    var showsimpledialog by remember { mutableStateOf(false) }
+    var dialogTitle by remember { mutableStateOf("") }
+    var dialogMessage by remember { mutableStateOf("") }
 
     BoxContainer(
         alignment = null,
@@ -177,6 +191,9 @@ fun AuthenticationScreen(modifier: Modifier = Modifier, NavController: NavContro
                                                     }
 
                                                     "button" -> {
+                                                        val buttonType =
+                                                            tempItem1["subtype"] ?: "elevated"
+
                                                         val font_size =
                                                             (tempItem1["font_size"] as Number).toInt()
                                                         val font_weight =
@@ -190,51 +207,161 @@ fun AuthenticationScreen(modifier: Modifier = Modifier, NavController: NavContro
                                                             tempItem1["action"] as Map<*, *>
                                                         val onclick: () -> Unit = {
                                                             action.let {
-                                                                if (it["type"] == "toast") {
-                                                                    val message =
-                                                                        it["message"] as String
-                                                                    val duration =
-                                                                        it["duration"] as String
+                                                                when (it["type"]) {
+                                                                    "toast" -> {
+                                                                        val message =
+                                                                            it["message"] as String
+                                                                        val duration =
+                                                                            it["duration"] as String
 
-                                                                    actionToast(
-                                                                        context = context,
-                                                                        message = message,
-                                                                        duration = duration
-                                                                    )
-                                                                } else if (it["type"] == "navigate") {
-                                                                    val screenName =
-                                                                        it["destination"] as String
-
-                                                                    if (textFieldValues.find { it.first == "usernameText" }?.second == "12345" && textFieldValues.find { it.first == "passwordText" }?.second == "12345") {
-                                                                        NavController.navigate(
-                                                                            screenName
-                                                                        )
-                                                                    } else {
-                                                                        actionToast(
-                                                                            modifier = Modifier,
+                                                                        ActionType_SnackBar(
                                                                             context = context,
-                                                                            message = "Invalid Credentials",
-                                                                            duration = "short"
+                                                                            message = message,
+                                                                            duration = duration
                                                                         )
                                                                     }
 
+                                                                    "navigate" -> {
+                                                                        val screenName =
+                                                                            it["destination"] as String
+
+                                                                        if (textFieldValues.find { it.first == "usernameText" }?.second == "12345" && textFieldValues.find { it.first == "passwordText" }?.second == "12345") {
+                                                                            NavController.navigate(
+                                                                                screenName
+                                                                            )
+                                                                        } else {
+                                                                            ActionType_SnackBar(
+                                                                                modifier = Modifier,
+                                                                                context = context,
+                                                                                message = "Invalid Credentials",
+                                                                                duration = "short"
+                                                                            )
+                                                                        }
+                                                                    }
+
+                                                                    "dialog" -> {
+                                                                        val subtype =
+                                                                            it["subtype"] as String
+                                                                        when (subtype) {
+                                                                            "alert" -> {
+                                                                                dialogTitle =
+                                                                                    it["title"] as String
+                                                                                dialogMessage =
+                                                                                    it["message"] as String
+                                                                                if (textFieldValues.find { it.first == "usernameText" }?.second == "12345" && textFieldValues.find { it.first == "passwordText" }?.second == "12345") {
+                                                                                    showalertdialog =
+                                                                                        true
+                                                                                }
+                                                                            }
+
+                                                                            "simple" -> {
+                                                                                dialogTitle =
+                                                                                    it["title"] as String
+                                                                                dialogMessage =
+                                                                                    it["message"] as String
+                                                                                if (textFieldValues.find { it.first == "usernameText" }?.second == "12345" && textFieldValues.find { it.first == "passwordText" }?.second == "12345") {
+                                                                                    showsimpledialog =
+                                                                                        true
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+
+                                                                    "url" -> {
+                                                                        val url_address =
+                                                                            it["url_address"] as String
+                                                                        ActionType_Url(
+                                                                            url = url_address,
+                                                                            context = context,
+                                                                        )
+                                                                    }
                                                                 }
                                                             }
                                                         }
-                                                        val contentId = tempItem1["#text"] as String
 
+                                                        if (showalertdialog) {
+                                                            ActionType_Alert(
+                                                                onDismissRequest = {
+                                                                    showalertdialog = false
+                                                                },
+                                                                onConfirmation = {
+                                                                    showalertdialog = true
+                                                                },
+                                                                dialogTitle = dialogTitle,
+                                                                dialogText = dialogMessage,
+                                                            )
+                                                        }
+
+                                                        if (showsimpledialog) {
+                                                            ActionType_SimpleDialog(
+                                                                onDismissRequest = {
+                                                                    showsimpledialog = false
+                                                                },
+                                                                dialogTitle = dialogTitle,
+                                                                dialogText = dialogMessage
+                                                            )
+                                                        }
+
+                                                        val contentId = tempItem1["#text"] as String
                                                         val text = contItem1[contentId].toString()
 
-                                                        TextButton(
-                                                            text = text,
-                                                            bgColor = bgColor,
-                                                            textColor = "#fcfdff",
-                                                            fontSize = font_size,
-                                                            fontWeight = font_weight,
-                                                            onclick = onclick,
-                                                            modifier = Modifier
-                                                                .then(buttonPadding),
-                                                        )
+
+                                                        when (buttonType) {
+                                                            "elevated" -> {
+                                                                ButtonElevated(
+                                                                    text = text,
+                                                                    bgColor = bgColor,
+                                                                    textColor = "#fcfdff",
+                                                                    fontSize = font_size,
+                                                                    fontWeight = font_weight,
+                                                                    onclick = onclick,
+                                                                    modifier = Modifier
+                                                                        .then(buttonPadding),
+                                                                )
+                                                            }
+
+                                                            "text" -> {
+                                                                ButtonText(
+                                                                    text = text,
+                                                                    textColor = "#0f0f0f",
+                                                                    fontSize = font_size,
+                                                                    fontWeight = font_weight,
+                                                                    onclick = onclick,
+                                                                    modifier = Modifier
+                                                                        .then(buttonPadding),
+                                                                )
+                                                            }
+
+                                                            "filled" -> {
+                                                                ButtonFilled(
+                                                                    text = text,
+                                                                    textColor = "#0f0f0f",
+                                                                    fontSize = font_size,
+                                                                    fontWeight = font_weight,
+                                                                    onclick = onclick,
+                                                                    modifier = Modifier
+                                                                        .then(buttonPadding),
+                                                                )
+                                                            }
+
+                                                            "icon" -> {
+                                                                val icon =
+                                                                    tempItem1["icon"] as String
+                                                                ButtonIcon(
+                                                                    onclick = onclick,
+                                                                    icon = icon
+                                                                )
+                                                            }
+
+                                                            "floatingAction" -> {
+                                                                val icon =
+                                                                    tempItem1["icon"] as String
+                                                                ButtonFloatingAction(
+                                                                    onclick = onclick,
+                                                                    icon = icon,
+                                                                )
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
