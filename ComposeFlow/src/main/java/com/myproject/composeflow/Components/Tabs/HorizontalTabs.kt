@@ -73,7 +73,7 @@ fun HorizontalTabs(modifier: Modifier = Modifier) {
         }) { targetIndex ->
             TextBlock(
                 text = tabContents[targetIndex],
-                Modifier
+                modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp)
                     .clip(RoundedCornerShape(10.dp))

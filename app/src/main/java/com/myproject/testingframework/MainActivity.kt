@@ -1,39 +1,55 @@
 package com.myproject.testingframework
 
+import android.graphics.Paint.Align
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.myproject.composeflow.Actions.Button_Actions.ActionType_SimpleDialog
-import com.myproject.composeflow.Actions.Button_Actions.ActionType_Url
-import com.myproject.composeflow.Components.Button.ButtonElevated
-import com.myproject.composeflow.Components.Button.ButtonFloatingAction
-import com.myproject.composeflow.Components.Button.ButtonIcon
-import com.myproject.testingframework.screens.AuthenticationScreen
+import androidx.navigation.navArgument
+import com.myproject.composeflow.Components.Container.BoxContainer
+import com.myproject.composeflow.Components.Container.VerticalContainer
+import com.myproject.composeflow.Components.Form.DropDownOption
+import com.myproject.composeflow.Components.Text.TextBlock
+import com.myproject.testingframework.Authentication.AuthenticationScreen
+import com.myproject.testingframework.DynamicData.api.quotesApi
+import com.myproject.testingframework.DynamicData.repository.repository
+import com.myproject.testingframework.SignUpForm.SignupScreen
+import com.myproject.testingframework.mvvm_Arc.view.Screen
 import com.myproject.testingframework.screens.DynamicScreen
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
             Navigation(navController = navController)
+//            DynamicScreen(NavController = navController)
         }
     }
 }
@@ -41,20 +57,20 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Navigation(modifier: Modifier = Modifier, navController: NavHostController) {
     NavHost(navController = navController, startDestination = screenList.first(), builder = {
-        composable("formScreen") {
-            AuthenticationScreen(NavController = navController)
-        }
-        composable("secondPage") {
-            DynamicScreen(screenName = "secondPage")
+        screenList.forEachIndexed { index, screen ->
+            composable(screen) {
+                Screen(
+                    id = jsonId[index],
+                    NavController = navController
+                )
+            }
         }
     })
 }
 
-val screenList = listOf("formScreen", "secondPage")
+val screenList = listOf("mvvmPage", "screen2")
+val jsonId = listOf(R.raw.mvvm, R.raw.screen2)
 
 
-/*
-  json -> function to return template and cards
-      -> check if there is template and cards
-      -> extract the names and store it
-* */
+
+

@@ -50,4 +50,6 @@ dependencies {
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
     implementation(libs.androidx.storage)
     implementation(libs.androidx.espresso.core)
+
+    implementation("androidx.compose.material:material:1.7.8")
 }

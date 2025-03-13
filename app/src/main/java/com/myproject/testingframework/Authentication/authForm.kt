@@ -1,17 +1,10 @@
-package com.myproject.testingframework.screens
+package com.myproject.testingframework.Authentication
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -21,7 +14,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
 import com.myproject.composeflow.Actions.Button_Actions.ActionType_Alert
 import com.myproject.composeflow.Actions.Button_Actions.ActionType_SimpleDialog
@@ -42,8 +34,6 @@ import com.myproject.composeflow.Components.Text.TitleText
 import com.myproject.composeflow.Components.Text.fontWeightMap
 import com.myproject.composeflow.Components.Text.mapToKeyboardType
 import com.myproject.composeflow.globalMap.textFieldValues
-import com.myproject.testingframework.Navigation
-import com.myproject.testingframework.formdata
 import com.myproject.testingframework.parseJsonToKotlin
 
 @Composable
@@ -87,6 +77,7 @@ fun AuthenticationScreen(modifier: Modifier = Modifier, NavController: NavContro
                                                         Pair("text", "title") -> "TitleText"
                                                         Pair("text", "body") -> "SubtitleText"
                                                         Pair("text", "Subtitle") -> "SubtitleText"
+                                                        Pair("text","") -> "TextBlock"
                                                         else -> type.first
                                                     }
                                                 when (type) {
@@ -164,6 +155,7 @@ fun AuthenticationScreen(modifier: Modifier = Modifier, NavController: NavContro
                                                                     suffixIcon = suffixIcon.toString(),
                                                                     hintText = text,
                                                                     value = existingValue,
+                                                                    isRequired = false,
                                                                     onValueChange = { newValue ->
                                                                         val index =
                                                                             textFieldValues.indexOfFirst { it.first == contentId }

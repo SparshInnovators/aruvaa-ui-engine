@@ -1,0 +1,48 @@
+{
+  "template": {
+    "name": "screen2",
+    "margins": {
+      "bottom": 6
+    },
+    "orientation": "vertical",
+    "paddings": {
+      "top": 10,
+      "bottom": 0,
+      "left": 40,
+      "right": 40
+    },
+    "items": [
+      {
+        "type": "text-title",
+        "font_size": 35,
+        "font_weight": "bold",
+        "margins": {
+          "bottom": 10,
+          "top": 10,
+          "left": 20
+        },
+        "#text": "@titles"
+      },
+      {
+        "type": "text-body",
+        "font_size": 18,
+        "font_weight": "normal",
+        "margins": {
+          "bottom": 10,
+          "top": 10,
+          "left": 20
+        },
+        "#text": "@details"
+      }
+    ]
+  },
+  "card": {
+    "state_id": 0,
+    "items": [
+      {
+        "type": "screen2",
+        "login-title": "Welcome User!!"
+      }
+    ]
+  }
+}

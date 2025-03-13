@@ -1,0 +1,82 @@
+{
+  "template": {
+    "name": "listPage",
+    "orientation": "vertical",
+    "paddings": {
+      "top": 10,
+      "bottom": 0,
+      "left": 40,
+      "right": 40
+    },
+    "items": [
+      {
+        "type": "layout",
+        "orientation": "vertical",
+        "itemCount" : 50,
+        "items": [
+          {
+            "type": "horizontalContainer",
+            "items": [
+              {
+                "type": "image",
+                "image_url": "https://gratisography.com/wp-content/uploads/2024/11/gratisography-augmented-reality-800x525.jpg",
+                "margins": {
+                  "top": 10,
+                  "right": 60,
+                  "bottom": 10,
+                  "left": 60
+                }
+              },
+              {
+                "type": "container",
+                "items": [
+                  {
+                    "type": "text-title",
+                    "font_size": 35,
+                    "font_weight": "bold",
+                    "margins": {
+                      "bottom": 8
+                    },
+                    "#text": "item-title"
+                  },
+                  {
+                    "type": "text-body",
+                    "font_size": 18,
+                    "font_weight": "normal",
+                    "margins": {
+                      "bottom": 20
+                    },
+                    "#text": "item-body"
+                  }
+                ]
+              },
+              {
+                "type": "button",
+                "subtype": "icon",
+                "icon": "share",
+                "action": {
+                  "type": "toast",
+                  "message": "Button clicked",
+                  "duration": "short"
+                },
+                "margins": {
+                  "bottom": 16,
+                  "top": 10
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "card": {
+    "items": [
+      {
+        "type": "listPage",
+        "item-title": "Title",
+        "item-body": "Body"
+      }
+    ]
+  }
+}

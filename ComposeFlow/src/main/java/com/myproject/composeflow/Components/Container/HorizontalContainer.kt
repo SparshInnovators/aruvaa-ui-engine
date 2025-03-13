@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -17,29 +18,15 @@ import androidx.compose.ui.unit.dp
 import com.myproject.composeflow.Components.Text.TextBlock
 
 @Composable
-fun HorizontalContainer() {
+fun HorizontalContainer(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .height(100.dp)
-            .background(Color.Gray.copy(alpha = 0.1f), shape = RoundedCornerShape(8.dp)),
-        horizontalArrangement = Arrangement.Center,
+            .wrapContentHeight()
+            .background(Color.White, shape = RoundedCornerShape(8.dp)),
+        horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        TextBlock("wrap_content", Modifier.padding(end = 2.dp))
-
-        TextBlock(
-            "Weight = 1", Modifier
-                .weight(1f)
-                .padding(horizontal = 2.dp)
-        )
-
-        TextBlock(
-            "Weight = 2", Modifier
-                .weight(2f)
-                .padding(horizontal = 2.dp)
-        )
-
-        TextBlock("wrap_content", Modifier.padding(start = 2.dp))
+        content()
     }
 }

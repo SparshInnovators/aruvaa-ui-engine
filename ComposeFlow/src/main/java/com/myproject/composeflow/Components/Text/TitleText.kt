@@ -31,7 +31,7 @@ val fontWeightMap = mapOf(
     "light" to FontWeight.Light,
     "normal" to FontWeight.Normal,
     "medium" to FontWeight.Medium,
-    "semi_bold" to FontWeight.SemiBold,
+    "semi-bold" to FontWeight.SemiBold,
     "bold" to FontWeight.Bold,
     "extra_bold" to FontWeight.ExtraBold,
     "black" to FontWeight.Black

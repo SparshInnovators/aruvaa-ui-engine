@@ -1,4 +1,4 @@
-package com.myproject.testingframework.screens
+package com.myproject.testingframework.divkitSample
 
 import android.content.Intent
 import android.net.Uri
@@ -20,7 +20,6 @@ import com.myproject.composeflow.Components.Text.SubtitleText
 import com.myproject.composeflow.Components.Text.TextBlock
 import com.myproject.composeflow.Components.Text.TitleText
 import com.myproject.composeflow.Components.Text.fontWeightMap
-import com.myproject.testingframework.data
 import com.myproject.testingframework.parseJsonToKotlin
 
 @Composable
@@ -129,7 +128,7 @@ fun UiTemplate(modifier: Modifier = Modifier) {
                                                             )
                                                         )
                                                     } else {
-                                                        TextBlock(text)
+                                                        TextBlock(text = text)
                                                     }
                                                 }
 
@@ -255,7 +254,7 @@ fun UiTemplate(modifier: Modifier = Modifier) {
                                                                 )
                                                         )
                                                     } else {
-                                                        TextBlock(text)
+                                                        TextBlock(text=text)
                                                     }
                                                 }
 

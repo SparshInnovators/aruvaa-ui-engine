@@ -7,10 +7,10 @@ import androidx.compose.ui.Modifier
 import com.myproject.composeflow.Components.Text.TextBlock
 
 @Composable
-fun DynamicRows(modifier: Modifier = Modifier) {
+fun DynamicRows(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
     LazyRow {
         items(50) {
-            TextBlock("Centered Element", Modifier)
+            content()
         }
     }
 }

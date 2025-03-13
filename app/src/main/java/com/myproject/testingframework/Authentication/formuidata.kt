@@ -1,12 +1,9 @@
-package com.myproject.testingframework
+package com.myproject.testingframework.Authentication
 
 val formdata = """
     {
       "template": {
         "name": "formScreen",
-        "margins": {
-          "bottom": 6
-        },
         "orientation": "vertical",
         "paddings": {
           "top": 10,

@@ -4,6 +4,10 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 
     kotlin("plugin.serialization") version "2.1.10"
+
+    //Hilt
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -53,6 +57,8 @@ dependencies {
     implementation(libs.androidx.material3)
 
     implementation(project(":ComposeFlow"))
+    implementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.foundation.layout.android)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -64,10 +70,28 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
 
-    implementation ("com.squareup.retrofit2:converter-gson:2.11.0")
+    val retrofit_version = "2.11.0"
+    implementation ("com.squareup.retrofit2:retrofit:$retrofit_version")
+    implementation ("com.squareup.retrofit2:converter-gson:$retrofit_version")
+
+    //Hilt
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
 
     implementation("io.coil-kt.coil3:coil-compose:3.1.0")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
 
     implementation("androidx.navigation:navigation-compose:2.8.6")
+
+    implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
+    implementation("androidx.datastore:datastore-preferences:1.1.3")
+}
+
+kapt {
+    correctErrorTypes = true
 }

@@ -1,0 +1,80 @@
+{
+  "template": {
+    "name": "mvvmPage",
+    "orientation": "vertical",
+    "paddings": {
+      "bottom": 10,
+      "top": 10,
+      "left": 5,
+      "right": 5
+    },
+    "items": [
+      {
+        "type": "layout",
+        "orientation": "vertical",
+        "itemCount": 10,
+        "items": [
+          {
+            "type": "horizontalContainer",
+            "items": [
+              {
+                "type": "image",
+                "image_url": "https://gratisography.com/wp-content/uploads/2024/11/gratisography-augmented-reality-800x525.jpg",
+                "margins": {
+                  "top": 10,
+                  "right": 10,
+                  "bottom": 10,
+                  "left": 10
+                }
+              },
+              {
+                "type": "container",
+                "margins": {
+                  "left": 10
+                },
+                "items": [
+                  {
+                    "type": "text-title",
+                    "font_size": 20,
+                    "font_weight": "bold",
+                    "#text": "@titles"
+                  },
+                  {
+                    "type": "text-body",
+                    "font_size": 18,
+                    "font_weight": "normal",
+                    "margins": {
+                      "bottom": 5
+                    },
+                    "#text": "@descriptions"
+                  }
+                ]
+              },
+              {
+                "type": "button",
+                "subtype": "icon",
+                "icon": "info",
+                "action": {
+                  "type": "navigate",
+                  "destination": "screen2"
+                },
+                "margins": {
+                  "bottom": 16,
+                  "top": 10
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "card": {
+    "items": [
+      {
+        "type": "mvvmPage"
+      }
+    ]
+  }
+}
+

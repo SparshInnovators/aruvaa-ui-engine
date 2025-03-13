@@ -7,24 +7,29 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Phone
+import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -34,6 +39,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.util.Logger
 import com.myproject.composeflow.Components.Design.paddingValues
 
 
@@ -46,48 +52,85 @@ fun SingleLineInputText(
     suffixIcon: String? = null,
     hintText: String,
     value: String,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    isRequired: Boolean,
+    onValidationChange: (Boolean) -> Unit = {}
 ) {
 
-    val visualTransformation = if (keyboardType == KeyboardType.Password) {
-        PasswordVisualTransformation()
-    } else {
-        VisualTransformation.None
+    var isTouched by remember { mutableStateOf(false) }
+    val showError = isRequired && isTouched && value.isEmpty()
+
+    LaunchedEffect(showError) {
+        onValidationChange((!showError))
     }
 
     OutlinedTextField(
         textStyle = TextStyle(
             fontSize = font_size.sp,
-            color = Color.Black,
+            color = if (showError) Color.Red else Color.Black,
             fontWeight = fontWeight ?: FontWeight.Normal
         ),
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
-        visualTransformation = visualTransformation,
-        onValueChange = onValueChange,
+        visualTransformation = if (keyboardType == KeyboardType.Password) {
+            PasswordVisualTransformation()
+        } else {
+            VisualTransformation.None
+        },
+        onValueChange = {
+            onValueChange(it)
+            if (it.isNotEmpty()) isTouched = true
+        },
+        isError = showError,
         value = value,
         maxLines = 1,
-        leadingIcon = {
-            suffixIcon?.lowercase().let { icon ->
-                mapStringToIcon[icon]?.let {
-                    Icon(it, contentDescription = null)
-                }
+        leadingIcon = suffixIcon?.lowercase()?.let { icon ->
+            mapStringToIcon[icon]?.let {
+                { Icon(it, contentDescription = null) }
             }
         },
-        placeholder = {
+        trailingIcon = {
+            if (showError) {
+                Icon(
+                    imageVector = Icons.Outlined.Warning,
+                    contentDescription = "Error",
+                    tint = Color.Red
+                )
+            }
+        },
+        label = {
             Text(
                 hintText,
-                style = TextStyle(fontSize = 20.sp, color = Color.Black)
+                style = TextStyle(
+                    fontSize = font_size.sp,
+                    color = if (showError) Color.Red else Color.Black
+                )
             )
         },
+        supportingText = {
+            if (showError) {
+                Text(
+                    text = "This field is required",
+                    color = Color.Red,
+                    fontSize = 12.sp
+                )
+            }
+        },
+
         modifier = modifier
-            .fillMaxWidth()
-            .background(Color.Gray.copy(alpha = 0.1f), shape = RoundedCornerShape(12.dp))
-            .border(
-                width = 1.dp,
-                color = Color.Gray,
-                shape = RoundedCornerShape(12.dp)
-            ),
+            .onFocusChanged { focusState ->
+                if (!focusState.isFocused) {
+                    isTouched = true
+                }
+            },
         shape = RoundedCornerShape(12.dp),
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedContainerColor = Color.Gray.copy(alpha = 0.1f),
+            unfocusedContainerColor = Color.Gray.copy(alpha = 0.1f),
+//            errorContainerColor = Color.Red.copy(alpha = 0.1f),
+            focusedBorderColor = if (showError) Color.Red else Color.Gray,
+            unfocusedBorderColor = if (showError) Color.Red else Color.Gray,
+            errorBorderColor = Color.Red
+        )
     )
 }
 
@@ -135,5 +178,6 @@ val mapStringToIcon = mapOf(
     "email" to Icons.Outlined.Email,
     "phone" to Icons.Outlined.Phone,
     "share" to Icons.Default.Share,
-    "settings" to Icons.Default.Settings
+    "settings" to Icons.Default.Settings,
+    "info" to Icons.Outlined.Info
 )

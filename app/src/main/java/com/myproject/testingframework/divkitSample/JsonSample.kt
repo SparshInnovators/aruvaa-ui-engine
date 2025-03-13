@@ -1,4 +1,4 @@
-package com.myproject.testingframework
+package com.myproject.testingframework.divkitSample
 
 val data = """
     {
