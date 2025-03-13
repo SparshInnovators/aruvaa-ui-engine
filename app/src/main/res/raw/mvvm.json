@@ -19,7 +19,7 @@
             "items": [
               {
                 "type": "image",
-                "image_url": "https://gratisography.com/wp-content/uploads/2024/11/gratisography-augmented-reality-800x525.jpg",
+                "image_url": "https://cdn11.bigcommerce.com/s-3uewkq06zr/images/stencil/1280x1280/products/234/413/fluorescent_blue__34881.1492487711.png?c=2",
                 "margins": {
                   "top": 10,
                   "right": 10,
@@ -35,33 +35,139 @@
                 "items": [
                   {
                     "type": "text-title",
-                    "font_size": 20,
-                    "font_weight": "bold",
-                    "#text": "@titles"
+                    "font_size": 18,
+                    "font_weight": "semi-bold",
+                    "color": "#bfbcbb",
+                    "#text": "@name"
                   },
                   {
                     "type": "text-body",
-                    "font_size": 18,
+                    "font_size": 15,
                     "font_weight": "normal",
                     "margins": {
                       "bottom": 5
                     },
-                    "#text": "@descriptions"
+                    "#text": "@address"
                   }
                 ]
               },
               {
                 "type": "button",
                 "subtype": "icon",
-                "icon": "info",
+                "icon": "location",
+                "size": 20,
                 "action": {
                   "type": "navigate",
                   "destination": "screen2"
                 },
                 "margins": {
                   "bottom": 16,
-                  "top": 10
+                  "top": 10,
+                  "right": 10,
+                  "left": 10
                 }
+              }
+            ]
+          },
+          {
+            "type": "expandable",
+            "items": [
+              {
+                "type": "verticalContainer",
+                "items": [
+                  {
+                    "type": "horizontalContainer",
+                    "items": [
+                      {
+                        "type": "button",
+                        "subtype": "icon",
+                        "icon": "call",
+                        "size": 20,
+                        "action": {
+                          "type": ""
+                        },
+                        "label": "Call",
+                        "margins": {
+                          "right": 10
+                        }
+                      },
+                      {
+                        "type": "button",
+                        "subtype": "icon",
+                        "icon": "message",
+                        "size": 20,
+                        "action": {
+                          "type": ""
+                        },
+                        "label": "SMS",
+                        "margins": {
+                          "right": 4
+                        }
+                      },
+                      {
+                        "type": "button",
+                        "subtype": "icon",
+                        "icon": "whatsapp",
+                        "size": 20,
+                        "action": {
+                          "type": ""
+                        },
+                        "label": "WhatsApp",
+                        "margins": {
+                          "right": 4
+                        }
+                      },
+                      {
+                        "type": "button",
+                        "subtype": "icon",
+                        "icon": "status",
+                        "size": 20,
+                        "action": {
+                          "type": ""
+                        },
+                        "label": "Status",
+                        "margins": {
+                          "right": 4
+                        }
+                      },
+                      {
+                        "type": "button",
+                        "subtype": "icon",
+                        "icon": "activity",
+                        "size": 20,
+                        "action": {
+                          "type": ""
+                        },
+                        "label": "Activity",
+                        "margins": {
+                          "right": 4
+                        }
+                      },
+                      {
+                        "type": "button",
+                        "subtype": "icon",
+                        "icon": "check-in",
+                        "size": 20,
+                        "action": {
+                          "type": ""
+                        },
+                        "label": "Check-in"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "divider",
+                    "margins": {
+                      "top": 5,
+                      "bottom": 10,
+                      "left": 8,
+                      "right": 8
+                    }
+                  },
+                  {
+                    "type": "abcd"
+                  }
+                ]
               }
             ]
           }
@@ -72,7 +178,8 @@
   "card": {
     "items": [
       {
-        "type": "mvvmPage"
+        "type": "mvvmPage",
+        "icon-call": "abcd"
       }
     ]
   }

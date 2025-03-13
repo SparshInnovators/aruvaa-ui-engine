@@ -52,4 +52,7 @@ dependencies {
     implementation(libs.androidx.espresso.core)
 
     implementation("androidx.compose.material:material:1.7.8")
+
+    implementation("androidx.compose.material:material-icons-extended:1.6.0")
+
 }

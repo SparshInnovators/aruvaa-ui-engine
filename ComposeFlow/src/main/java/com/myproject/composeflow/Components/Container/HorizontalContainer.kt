@@ -24,7 +24,7 @@ fun HorizontalContainer(modifier: Modifier = Modifier, content: @Composable () -
             .fillMaxWidth()
             .wrapContentHeight()
             .background(Color.White, shape = RoundedCornerShape(8.dp)),
-        horizontalArrangement = Arrangement.Start,
+        horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
         content()

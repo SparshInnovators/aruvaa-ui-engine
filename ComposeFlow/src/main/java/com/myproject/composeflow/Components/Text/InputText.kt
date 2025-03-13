@@ -7,10 +7,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccessTime
+import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.material.icons.filled.EditLocation
+import androidx.compose.material.icons.filled.EditLocationAlt
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Sms
+import androidx.compose.material.icons.filled.Whatsapp
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.KeyboardArrowDown
+import androidx.compose.material.icons.outlined.KeyboardArrowUp
+import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Phone
@@ -176,8 +185,16 @@ val mapStringToIcon = mapOf(
     "person" to Icons.Outlined.Person,
     "lock" to Icons.Outlined.Lock,
     "email" to Icons.Outlined.Email,
-    "phone" to Icons.Outlined.Phone,
+    "call" to Icons.Outlined.Phone,
     "share" to Icons.Default.Share,
     "settings" to Icons.Default.Settings,
-    "info" to Icons.Outlined.Info
+    "info" to Icons.Outlined.Info,
+    "location" to Icons.Outlined.LocationOn,
+    "arrow_down" to Icons.Outlined.KeyboardArrowDown,
+    "arrow_up" to Icons.Outlined.KeyboardArrowUp,
+    "message" to Icons.Filled.Sms,
+    "whatsapp" to Icons.Filled.Whatsapp,
+    "status" to Icons.Filled.AccessTime,
+    "activity" to Icons.Filled.CalendarToday,
+    "check-in" to Icons.Filled.EditLocationAlt
 )

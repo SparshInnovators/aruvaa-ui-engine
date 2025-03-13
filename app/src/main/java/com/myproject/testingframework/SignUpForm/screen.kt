@@ -49,8 +49,7 @@ import com.myproject.composeflow.Components.Text.fontWeightMap
 import com.myproject.composeflow.Components.Text.mapToKeyboardType
 import com.myproject.composeflow.globalMap.textFieldValues
 import com.myproject.testingframework.Authentication.extractType
-import com.myproject.testingframework.DynamicData.replaceTemplateVariables
-import com.myproject.testingframework.DynamicData.viewmodel
+import com.myproject.testingframework.mvvm_Arc.viewmodel.MyViewModel
 
 @Composable
 fun SignupScreen(modifier: Modifier = Modifier) {
@@ -78,13 +77,17 @@ fun SignupScreen(modifier: Modifier = Modifier) {
     val newUserData = mutableListOf<Pair<String, String>>()
 
     //quotesApi
-    val vm: viewmodel = hiltViewModel()
-    val quotesData = vm.quote.collectAsState()
+//    val vm: viewmodel = hiltViewModel()
+//    val quotesData = vm.quote.collectAsState()
 
-    val data = mapOf(
-        "quote" to (quotesData.value["quote"] ?: ""),
-        "author" to (quotesData.value["author"] ?: "")
-    )
+//    val data = mapOf(
+//        "quote" to (quotesData.value["quote"] ?: ""),
+//        "author" to (quotesData.value["author"] ?: "")
+//    )
+
+    //MyApi
+    val myvm : MyViewModel = hiltViewModel()
+    val organizationList = myvm.organizationList.collectAsState()
 
 
     Column(
@@ -598,10 +601,7 @@ fun SignupScreen(modifier: Modifier = Modifier) {
                                                                                                                     containerItem["align"] as String
                                                                                                                 ) else null
                                                                                                             val text =
-                                                                                                                replaceTemplateVariables(
-                                                                                                                    inputString = containerItem["#text"] as String,
-                                                                                                                    data = data
-                                                                                                                )
+                                                                                                                ""
 
                                                                                                             TextBlock(
                                                                                                                 text = text,

@@ -47,7 +47,7 @@ fun replacedynamicData(contentId: String, index: Int): String {
             "titles" -> titles.getOrNull(index) ?: "Title not found"
             "descriptions" -> descriptions.getOrNull(index) ?: "Description not found"
             "details" -> details.getOrNull(index) ?: "Details not found"
-            else -> "Invalid key: $key"
+            else -> key
         }
     } else {
         contentId

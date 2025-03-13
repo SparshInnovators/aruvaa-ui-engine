@@ -1,5 +1,10 @@
 package com.myproject.testingframework.mvvm_Arc.view
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -8,9 +13,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -56,8 +65,6 @@ import com.myproject.composeflow.Components.Text.fontWeightMap
 import com.myproject.composeflow.Components.Text.mapToKeyboardType
 import com.myproject.composeflow.globalMap.textFieldValues
 import com.myproject.testingframework.Authentication.extractType
-import com.myproject.testingframework.DynamicData.replaceTemplateVariables
-import com.myproject.testingframework.DynamicData.viewmodel
 import com.myproject.testingframework.SignUpForm.JsonFileParsing
 import com.myproject.testingframework.SignUpForm.mapStringToAlignment
 import com.myproject.testingframework.dataStore.createKey
@@ -65,11 +72,13 @@ import com.myproject.testingframework.dataStore.getDataFromDB
 import com.myproject.testingframework.dataStore.saveDataToDB
 import com.myproject.testingframework.mvvm_Arc.model.functions.replacedynamicData
 import com.myproject.testingframework.mvvm_Arc.model.repository.JsonToKotlin
+import com.myproject.testingframework.mvvm_Arc.viewmodel.MyViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.math.exp
+
 
 @Composable
 fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController) {
@@ -99,20 +108,14 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
     //signup form
     val newUserData = mutableListOf<Pair<String, String>>()
 
-    //quotesApi
-    val vm: viewmodel = hiltViewModel()
-    val quotesData = vm.quote.collectAsState()
+    //MyApi
+    val myvm: MyViewModel = hiltViewModel()
+    val organizationList = myvm.organizationList.collectAsState()
 
-    val data = mapOf(
-        "quote" to (quotesData.value["quote"] ?: ""),
-        "author" to (quotesData.value["author"] ?: "")
-    )
 
     //access data from dataStore
-    val Stored_title = createKey("Stored_title")
-    val Stored_index = createKey("Stored_index")
-
-    var expanded by remember { mutableStateOf(false) }
+//    val Stored_title = createKey("Stored_title")
+//    val Stored_index = createKey("Stored_index")
 
     Column(
         modifier = Modifier
@@ -625,10 +628,7 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                                                                                                     containerItem["align"] as String
                                                                                                                 ) else null
                                                                                                             val text =
-                                                                                                                replaceTemplateVariables(
-                                                                                                                    inputString = containerItem["#text"] as String,
-                                                                                                                    data = data
-                                                                                                                )
+                                                                                                                ""
 
                                                                                                             TextBlock(
                                                                                                                 text = text,
@@ -699,17 +699,26 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                                 when (layoutType) {
                                                     "vertical" -> {
                                                         DynamicColumn(
-                                                            itemCount = count,
+                                                            itemCount = organizationList.value.size,
                                                             content = { index1 ->
+                                                                val expanded = remember(index1) {
+                                                                    mutableStateOf(false)
+                                                                }
                                                                 layoutItem.forEach {
                                                                     when (it["type"]) {
                                                                         "horizontalContainer" -> {
                                                                             val items =
                                                                                 it["items"] as List<Map<*, *>>
+
                                                                             HorizontalContainer(
-                                                                                modifier = Modifier.padding(
-                                                                                    vertical = 5.dp
-                                                                                ).clickable { expanded = !expanded },
+                                                                                modifier = Modifier
+                                                                                    .padding(
+                                                                                        vertical = 5.dp
+                                                                                    )
+                                                                                    .clickable {
+                                                                                        expanded.value =
+                                                                                            !expanded.value
+                                                                                    },
                                                                                 content = {
                                                                                     items.forEach { containerItem ->
                                                                                         val type =
@@ -734,7 +743,7 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                                                                                         )
                                                                                                         .clip(
                                                                                                             shape = RoundedCornerShape(
-                                                                                                                10.dp
+                                                                                                                2.dp
                                                                                                             )
                                                                                                         )
                                                                                                 )
@@ -806,7 +815,7 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                                                                                                         )
 
                                                                                                                     TitleText(
-                                                                                                                        text = text,
+                                                                                                                        text = organizationList.value[index1][text].toString(),
                                                                                                                         fontWeight = font_weight,
                                                                                                                         fontSize = font_size,
                                                                                                                         modifier = Modifier.then(
@@ -841,7 +850,7 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                                                                                                         )
 
                                                                                                                     SubtitleText(
-                                                                                                                        text = text,
+                                                                                                                        text = organizationList.value[index1][text].toString(),
                                                                                                                         fontSize = font_size,
                                                                                                                         fontWeight = font_weight,
                                                                                                                         modifier = Modifier.then(
@@ -890,19 +899,19 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                                                                                                     CoroutineScope(
                                                                                                                         Dispatchers.IO
                                                                                                                     ).launch {
-                                                                                                                        saveDataToDB(
-                                                                                                                            context = context,
-                                                                                                                            key = Stored_title,
-                                                                                                                            value = replacedynamicData(
-                                                                                                                                contentId = "@titles",
-                                                                                                                                index = index1
-                                                                                                                            )
-                                                                                                                        )
-                                                                                                                        saveDataToDB(
-                                                                                                                            context = context,
-                                                                                                                            key = Stored_index,
-                                                                                                                            value = "$index1"
-                                                                                                                        )
+//                                                                                                                        saveDataToDB(
+//                                                                                                                            context = context,
+//                                                                                                                            key = Stored_title,
+//                                                                                                                            value = replacedynamicData(
+//                                                                                                                                contentId = "@titles",
+//                                                                                                                                index = index1
+//                                                                                                                            )
+//                                                                                                                        )
+//                                                                                                                        saveDataToDB(
+//                                                                                                                            context = context,
+//                                                                                                                            key = Stored_index,
+//                                                                                                                            value = "$index1"
+//                                                                                                                        )
                                                                                                                         withContext(
                                                                                                                             Dispatchers.Main
                                                                                                                         ) {
@@ -915,6 +924,11 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
 
                                                                                                                 }
 
+//                                                                                                                "set_value" -> {
+//                                                                                                                    expanded.value =
+//                                                                                                                        !expanded.value
+//                                                                                                                }
+
                                                                                                             }
                                                                                                         }
                                                                                                     }
@@ -922,8 +936,17 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
 
                                                                                                 when (buttonType) {
                                                                                                     "icon" -> {
-                                                                                                        val icon =
+                                                                                                        var icon =
                                                                                                             containerItem["icon"] as String
+                                                                                                        if (icon == "arrow") {
+                                                                                                            if (expanded.value) {
+                                                                                                                icon =
+                                                                                                                    "arrow_up"
+                                                                                                            } else {
+                                                                                                                icon =
+                                                                                                                    "arrow_down"
+                                                                                                            }
+                                                                                                        }
                                                                                                         ButtonIcon(
                                                                                                             onclick = onclick,
                                                                                                             icon = icon,
@@ -936,20 +959,237 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                                                                             }
                                                                                         }
                                                                                     }
-                                                                                })
+                                                                                }
+                                                                            )
                                                                         }
 
-                                                                        "verticalContainer" -> {
+                                                                        "expandable" -> {
+                                                                            AnimatedVisibility(
+                                                                                visible = expanded.value,
+                                                                                enter = expandVertically(
+                                                                                    animationSpec = tween(
+                                                                                        durationMillis = 300
+                                                                                    )
+                                                                                ),
+                                                                                exit = shrinkVertically(
+                                                                                    animationSpec = tween(
+                                                                                        durationMillis = 300
+                                                                                    )
+                                                                                ),
+                                                                            ) {
+                                                                                val expandableItems =
+                                                                                    it["items"] as List<Map<*, *>>
+                                                                                expandableItems.forEach { expItem ->
+                                                                                    val type5 =
+                                                                                        when (val type =
+                                                                                            extractType(
+                                                                                                expItem["type"] as String
+                                                                                            )) {
+                                                                                            Pair(
+                                                                                                "text",
+                                                                                                "title"
+                                                                                            ) -> "TitleText"
 
+                                                                                            Pair(
+                                                                                                "text",
+                                                                                                "body"
+                                                                                            ) -> "SubtitleText"
+
+                                                                                            Pair(
+                                                                                                "text",
+                                                                                                "Subtitle"
+                                                                                            ) -> "SubtitleText"
+
+                                                                                            else -> type.first
+                                                                                        }
+                                                                                    when (type5) {
+                                                                                        "verticalContainer" -> {
+                                                                                            val VcontainerItem =
+                                                                                                expItem["items"] as List<Map<*, *>>
+                                                                                            VerticalContainer(
+                                                                                                wrapContentHeight = true,
+                                                                                                modifier = Modifier,
+                                                                                                contents = {
+                                                                                                    VcontainerItem.forEach { VContItem ->
+                                                                                                        val type6 =
+                                                                                                            when (val type =
+                                                                                                                extractType(
+                                                                                                                    VContItem["type"] as String
+                                                                                                                )) {
+                                                                                                                Pair(
+                                                                                                                    "text",
+                                                                                                                    "title"
+                                                                                                                ) -> "TitleText"
+
+                                                                                                                Pair(
+                                                                                                                    "text",
+                                                                                                                    "body"
+                                                                                                                ) -> "SubtitleText"
+
+                                                                                                                Pair(
+                                                                                                                    "text",
+                                                                                                                    "Subtitle"
+                                                                                                                ) -> "SubtitleText"
+
+                                                                                                                else -> type.first
+                                                                                                            }
+                                                                                                        when (type6) {
+                                                                                                            "horizontalContainer" -> {
+                                                                                                                val HcontainerItem =
+                                                                                                                    VContItem["items"] as List<Map<*, *>>
+                                                                                                                HorizontalContainer(
+                                                                                                                    modifier = Modifier,
+                                                                                                                    content = {
+                                                                                                                        HcontainerItem.forEach { HContItem ->
+                                                                                                                            val containertype =
+                                                                                                                                when (val type =
+                                                                                                                                    extractType(
+                                                                                                                                        HContItem["type"] as String
+                                                                                                                                    )) {
+                                                                                                                                    Pair(
+                                                                                                                                        "text",
+                                                                                                                                        "title"
+                                                                                                                                    ) -> "TitleText"
+
+                                                                                                                                    Pair(
+                                                                                                                                        "text",
+                                                                                                                                        "body"
+                                                                                                                                    ) -> "SubtitleText"
+
+                                                                                                                                    Pair(
+                                                                                                                                        "text",
+                                                                                                                                        "Subtitle"
+                                                                                                                                    ) -> "SubtitleText"
+
+                                                                                                                                    else -> type.first
+                                                                                                                                }
+                                                                                                                            when (containertype) {
+                                                                                                                                "button" -> {
+                                                                                                                                    val buttonType =
+                                                                                                                                        HContItem["subtype"]
+                                                                                                                                            ?: "elevated"
+                                                                                                                                    val buttonPadding =
+                                                                                                                                        paddingValues(
+                                                                                                                                            path = HContItem["margins"]
+                                                                                                                                        )
+                                                                                                                                    val action =
+                                                                                                                                        HContItem["action"] as Map<*, *>
+                                                                                                                                    val onclick: () -> Unit =
+                                                                                                                                        {
+                                                                                                                                            action.let { action ->
+                                                                                                                                                when (action["type"]) {
+                                                                                                                                                    "toast" -> {
+                                                                                                                                                        val message =
+                                                                                                                                                            action["message"] as String
+                                                                                                                                                        val duration =
+                                                                                                                                                            action["duration"] as String
+
+                                                                                                                                                        ActionType_SnackBar(
+                                                                                                                                                            context = context,
+                                                                                                                                                            message = message,
+                                                                                                                                                            duration = duration
+                                                                                                                                                        )
+                                                                                                                                                    }
+
+                                                                                                                                                    "navigate" -> {
+                                                                                                                                                        val screenName =
+                                                                                                                                                            action["destination"] as String
+
+
+                                                                                                                                                        CoroutineScope(
+                                                                                                                                                            Dispatchers.IO
+                                                                                                                                                        ).launch {
+                                                                                                                                                            withContext(
+                                                                                                                                                                Dispatchers.Main
+                                                                                                                                                            ) {
+                                                                                                                                                                NavController.navigate(
+                                                                                                                                                                    route = screenName
+                                                                                                                                                                )
+                                                                                                                                                            }
+                                                                                                                                                        }
+
+
+                                                                                                                                                    }
+
+                                                                                                                                                    "set_value" -> {
+                                                                                                                                                        expanded.value =
+                                                                                                                                                            !expanded.value
+                                                                                                                                                    }
+
+                                                                                                                                                }
+                                                                                                                                            }
+                                                                                                                                        }
+
+
+                                                                                                                                    when (buttonType) {
+                                                                                                                                        "icon" -> {
+                                                                                                                                            var label =
+                                                                                                                                                HContItem["label"] as String
+                                                                                                                                            var icon =
+                                                                                                                                                HContItem["icon"] as String
+                                                                                                                                            if (icon == "arrow") {
+                                                                                                                                                if (expanded.value) {
+                                                                                                                                                    icon =
+                                                                                                                                                        "arrow_up"
+                                                                                                                                                } else {
+                                                                                                                                                    icon =
+                                                                                                                                                        "arrow_down"
+                                                                                                                                                }
+                                                                                                                                            }
+                                                                                                                                            ButtonIcon(
+                                                                                                                                                onclick = onclick,
+                                                                                                                                                icon = icon,
+                                                                                                                                                label = label,
+                                                                                                                                                modifier = Modifier.then(
+                                                                                                                                                    buttonPadding
+                                                                                                                                                )
+                                                                                                                                            )
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                )
+                                                                                                            }
+
+                                                                                                            "divider" -> {
+                                                                                                                val paddings =
+                                                                                                                    paddingValues(
+                                                                                                                        path = VContItem["margins"]
+                                                                                                                    )
+                                                                                                                HorizontalDivider(
+                                                                                                                    color = Color.Gray,
+                                                                                                                    thickness = 1.dp,
+                                                                                                                    modifier = Modifier.then(
+                                                                                                                        paddings
+                                                                                                                    )
+                                                                                                                )
+                                                                                                            }
+
+                                                                                                            "abcd" -> {
+                                                                                                                TextBlock(
+                                                                                                                    text = organizationList.value[index1].toString()
+                                                                                                                )
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            )
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
                                                                         }
+
+
                                                                     }
                                                                 }
-                                                                if(expanded){
-                                                                    TextBlock(text = "expanded")
-                                                                }
+
                                                             },
                                                             modifier = Modifier
                                                         )
+
                                                     }
 
                                                     "horizontal" -> {
@@ -969,7 +1209,7 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                                     paddingValues(path = templateItem["margins"])
                                                 val contentId = templateItem["#text"] as String
 
-//                                                val text = contentItem[contentId].toString()
+                                                val text = contentItem[contentId].toString()
 //                                                val text =
 //                                                    if (replacedynamicData(
 //                                                            contentId = contentId,
@@ -981,10 +1221,10 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
 //                                                        contentId = contentId,
 //                                                        index = (backstackentry.arguments?.get("index") as Number).toInt()
 //                                                    )
-                                                val text = getDataFromDB(
-                                                    context = context,
-                                                    key = Stored_title
-                                                ).collectAsState(initial = "title").value
+//                                                val text = getDataFromDB(
+//                                                    context = context,
+//                                                    key = Stored_title
+//                                                ).collectAsState(initial = "title").value
 
                                                 TitleText(
                                                     text = text,
@@ -1005,24 +1245,24 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                                     paddingValues(path = templateItem["margins"])
                                                 val contentId = templateItem["#text"] as String
 
-//                                                val text = contentItem[contentId].toString()
+                                                val text = contentItem[contentId].toString()
 
-                                                val index = (getDataFromDB(
-                                                    context = context,
-                                                    key = Stored_index
-                                                ).collectAsState(initial = "0").value).toInt()
+//                                                val index = (getDataFromDB(
+//                                                    context = context,
+//                                                    key = Stored_index
+//                                                ).collectAsState(initial = "0").value).toInt()
 
-                                                val text =
-                                                    if (replacedynamicData(
-                                                            contentId = contentId,
-                                                            index = index
-                                                        ) == contentId
-                                                    ) contentItem[contentId] as String
-                                                    else
-                                                        replacedynamicData(
-                                                            contentId = contentId,
-                                                            index = index
-                                                        )
+//                                                val text =
+//                                                    if (replacedynamicData(
+//                                                            contentId = contentId,
+//                                                            index = index
+//                                                        ) == contentId
+//                                                    ) contentItem[contentId] as String
+//                                                    else
+//                                                        replacedynamicData(
+//                                                            contentId = contentId,
+//                                                            index = index
+//                                                        )
 
                                                 SubtitleText(
                                                     text = text,
@@ -1199,7 +1439,8 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                         contentItem["icon"] as String
                                     ButtonIcon(
                                         onclick = onclick,
-                                        icon = icon
+                                        icon = icon,
+                                        modifier = Modifier
                                     )
                                 }
 
@@ -1209,6 +1450,7 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                     ButtonFloatingAction(
                                         onclick = onclick,
                                         icon = icon,
+                                        modifier = Modifier
                                     )
                                 }
                             }

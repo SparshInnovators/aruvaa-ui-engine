@@ -32,8 +32,6 @@ import com.myproject.composeflow.Components.Container.VerticalContainer
 import com.myproject.composeflow.Components.Form.DropDownOption
 import com.myproject.composeflow.Components.Text.TextBlock
 import com.myproject.testingframework.Authentication.AuthenticationScreen
-import com.myproject.testingframework.DynamicData.api.quotesApi
-import com.myproject.testingframework.DynamicData.repository.repository
 import com.myproject.testingframework.SignUpForm.SignupScreen
 import com.myproject.testingframework.mvvm_Arc.view.Screen
 import com.myproject.testingframework.screens.DynamicScreen

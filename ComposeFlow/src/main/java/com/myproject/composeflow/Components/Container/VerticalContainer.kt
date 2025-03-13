@@ -37,7 +37,6 @@ fun VerticalContainer(
                 }
             },
         verticalArrangement = Arrangement.spacedBy(2.dp),
-//        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         contents()
     }
