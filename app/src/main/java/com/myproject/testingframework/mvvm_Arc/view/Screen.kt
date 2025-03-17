@@ -1,6 +1,8 @@
 package com.myproject.testingframework.mvvm_Arc.view
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
@@ -14,6 +16,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -29,7 +33,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -70,6 +79,7 @@ import com.myproject.testingframework.SignUpForm.mapStringToAlignment
 import com.myproject.testingframework.dataStore.createKey
 import com.myproject.testingframework.dataStore.getDataFromDB
 import com.myproject.testingframework.dataStore.saveDataToDB
+import com.myproject.testingframework.mvvm_Arc.model.functions.AuthenticateUser
 import com.myproject.testingframework.mvvm_Arc.model.functions.replacedynamicData
 import com.myproject.testingframework.mvvm_Arc.model.repository.JsonToKotlin
 import com.myproject.testingframework.mvvm_Arc.viewmodel.MyViewModel
@@ -114,15 +124,21 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
 
 
     //access data from dataStore
-//    val Stored_title = createKey("Stored_title")
-//    val Stored_index = createKey("Stored_index")
+    val Stored_index = createKey("Stored_index")
+
+    val hasLists = templateItems.any { it["type"] == "layout" }
 
     Column(
         modifier = Modifier
-            .then(templatePadding)
-            .let { Modifier.background(bgColor) }
             .fillMaxSize()
+            .let { Modifier.background(bgColor) }
+            .then(templatePadding)
+            .then(
+                if (!hasLists) Modifier.verticalScroll(rememberScrollState())
+                else Modifier
+            )
 //            .verticalScroll(rememberScrollState())
+
     ) {
         contentItems.forEach { contentItem ->
             when (contentItem["type"]) {
@@ -130,6 +146,7 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                     when (orientation ?: "vertical") {
                         "vertical" -> {
                             VerticalContainer(
+                                modifier = Modifier,
                                 contents = {
                                     templateItems.forEach { templateItem ->
                                         val type =
@@ -699,6 +716,7 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                                 when (layoutType) {
                                                     "vertical" -> {
                                                         DynamicColumn(
+                                                            modifier = Modifier,
                                                             itemCount = organizationList.value.size,
                                                             content = { index1 ->
                                                                 val expanded = remember(index1) {
@@ -896,22 +914,16 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                                                                                                         action["destination"] as String
 
 
+
+
                                                                                                                     CoroutineScope(
                                                                                                                         Dispatchers.IO
                                                                                                                     ).launch {
-//                                                                                                                        saveDataToDB(
-//                                                                                                                            context = context,
-//                                                                                                                            key = Stored_title,
-//                                                                                                                            value = replacedynamicData(
-//                                                                                                                                contentId = "@titles",
-//                                                                                                                                index = index1
-//                                                                                                                            )
-//                                                                                                                        )
-//                                                                                                                        saveDataToDB(
-//                                                                                                                            context = context,
-//                                                                                                                            key = Stored_index,
-//                                                                                                                            value = "$index1"
-//                                                                                                                        )
+                                                                                                                        saveDataToDB(
+                                                                                                                            context = context,
+                                                                                                                            key = Stored_index,
+                                                                                                                            value = "$index1"
+                                                                                                                        )
                                                                                                                         withContext(
                                                                                                                             Dispatchers.Main
                                                                                                                         ) {
@@ -976,6 +988,7 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                                                                         durationMillis = 300
                                                                                     )
                                                                                 ),
+                                                                                modifier = Modifier
                                                                             ) {
                                                                                 val expandableItems =
                                                                                     it["items"] as List<Map<*, *>>
@@ -1181,13 +1194,10 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                                                                 }
                                                                             }
                                                                         }
-
-
                                                                     }
                                                                 }
 
-                                                            },
-                                                            modifier = Modifier
+                                                            }
                                                         )
 
                                                     }
@@ -1209,22 +1219,23 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                                     paddingValues(path = templateItem["margins"])
                                                 val contentId = templateItem["#text"] as String
 
-                                                val text = contentItem[contentId].toString()
-//                                                val text =
-//                                                    if (replacedynamicData(
-//                                                            contentId = contentId,
-//                                                            index = (backstackentry?.arguments?.get(
-//                                                                "index"
-//                                                            ) as Number).toInt()
-//                                                        ) == contentId
-//                                                    ) contentItem[contentId] as String else replacedynamicData(
-//                                                        contentId = contentId,
-//                                                        index = (backstackentry.arguments?.get("index") as Number).toInt()
-//                                                    )
-//                                                val text = getDataFromDB(
-//                                                    context = context,
-//                                                    key = Stored_title
-//                                                ).collectAsState(initial = "title").value
+
+                                                val text =
+                                                    if (contentItem[contentId].toString() == "null") {
+                                                        val idx = (getDataFromDB(
+                                                            context = context,
+                                                            key = Stored_index
+                                                        ).collectAsState(initial = 0).value).toString()
+                                                            .toInt()
+//                                                        organizationList.value[idx]["name"].toString()
+                                                        if (organizationList.value.isEmpty()) {
+                                                            idx.toString()
+                                                        } else {
+                                                            organizationList.value[idx]["name"].toString()
+                                                        }
+                                                    } else {
+                                                        contentItem[contentId].toString()
+                                                    }
 
                                                 TitleText(
                                                     text = text,
@@ -1243,27 +1254,26 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                                         ?: FontWeight.Black
                                                 val paddings =
                                                     paddingValues(path = templateItem["margins"])
+
                                                 val contentId = templateItem["#text"] as String
 
-                                                val text = contentItem[contentId].toString()
-
-//                                                val index = (getDataFromDB(
-//                                                    context = context,
-//                                                    key = Stored_index
-//                                                ).collectAsState(initial = "0").value).toInt()
-
-//                                                val text =
-//                                                    if (replacedynamicData(
-//                                                            contentId = contentId,
-//                                                            index = index
-//                                                        ) == contentId
-//                                                    ) contentItem[contentId] as String
-//                                                    else
-//                                                        replacedynamicData(
-//                                                            contentId = contentId,
-//                                                            index = index
-//                                                        )
-
+                                                val text =
+                                                    if (contentItem[contentId].toString() == "null") {
+                                                        val idx = (getDataFromDB(
+                                                            context = context,
+                                                            key = Stored_index
+                                                        ).collectAsState(initial = 0).value).toString()
+                                                            .toInt()
+                                                        if (organizationList.value.isEmpty()) {
+                                                            idx.toString()
+                                                        } else {
+                                                            organizationList.value[idx].filter { it.key != "name" }
+                                                                .map { "${it.key} : ${it.value}" }
+                                                                .joinToString("\n\n")
+                                                        }
+                                                    } else {
+                                                        contentItem[contentId].toString()
+                                                    }
                                                 SubtitleText(
                                                     text = text,
                                                     fontSize = font_size,
@@ -1271,10 +1281,263 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                                     modifier = Modifier.then(paddings)
                                                 )
                                             }
+
+                                            "inputText" -> {
+                                                when ((templateItem["maxLines"] as? Number)?.toInt()
+                                                    ?: 1) {
+                                                    1 -> {
+                                                        val keyboardType =
+                                                            mapToKeyboardType[templateItem["keyboardType"]]
+                                                        val font_size =
+                                                            (templateItem["font_size"] as Number).toInt()
+                                                        val font_weight =
+                                                            fontWeightMap[templateItem["font_weight"]]
+                                                        val paddings =
+                                                            paddingValues(path = templateItem["margins"])
+                                                        val suffixIcon =
+                                                            templateItem["suffixIcon"]
+                                                        val contentId =
+                                                            templateItem["#text"] as String
+
+                                                        val text =
+                                                            contentItem[contentId].toString()
+
+                                                        val existingValue =
+                                                            textFieldValues.find { it.first == contentId }?.second
+                                                                ?: ""
+
+                                                        SingleLineInputText(
+                                                            modifier = Modifier
+                                                                .then(
+                                                                    paddings
+                                                                )
+                                                                .fillMaxWidth(),
+                                                            keyboardType = keyboardType
+                                                                ?: KeyboardType.Text,
+                                                            font_size = font_size,
+                                                            fontWeight = font_weight,
+                                                            suffixIcon = suffixIcon.toString(),
+                                                            hintText = text,
+                                                            value = existingValue,
+                                                            isRequired = false,
+                                                            onValueChange = { newValue ->
+                                                                val index =
+                                                                    textFieldValues.indexOfFirst { it.first == contentId }
+                                                                if (index != -1) {
+                                                                    textFieldValues[index] =
+                                                                        textFieldValues[index].copy(
+                                                                            second = newValue
+                                                                        )
+                                                                } else {
+                                                                    textFieldValues.add(
+                                                                        contentId to newValue
+                                                                    )
+                                                                }
+                                                            }
+                                                        )
+                                                    }
+
+                                                    else -> {
+                                                        MultiLineInputText()
+                                                    }
+                                                }
+                                            }
+
+                                            "button" -> {
+                                                val buttonType =
+                                                    templateItem["subtype"] ?: "elevated"
+
+                                                val font_size =
+                                                    (templateItem["font_size"] as Number).toInt()
+                                                val font_weight =
+                                                    fontWeightMap[templateItem["font_weight"]]
+                                                        ?: FontWeight.Normal
+                                                val buttonPadding =
+                                                    paddingValues(path = templateItem["margins"])
+                                                val bgColor =
+                                                    (templateItem["backgroundColor"] as? String)
+                                                        ?: ""
+
+                                                val contentId = templateItem["#text"] as String
+
+
+                                                val action =
+                                                    templateItem["action"] as Map<*, *>
+                                                val onclick: () -> Unit = {
+                                                    action.let {
+                                                        when (it["type"]) {
+                                                            "toast" -> {
+                                                                val message =
+                                                                    it["message"] as String
+                                                                val duration =
+                                                                    it["duration"] as String
+
+                                                                ActionType_SnackBar(
+                                                                    context = context,
+                                                                    message = message,
+                                                                    duration = duration
+                                                                )
+                                                            }
+
+                                                            "navigate" -> {
+                                                                val screenName =
+                                                                    it["destination"] as String
+                                                                val actionType =
+                                                                    it["actionType"] as String
+
+                                                                if (actionType == "authenticate") {
+                                                                    if (AuthenticateUser(
+                                                                            userName = textFieldValues.find { it.first == "usernameText" }?.second
+                                                                                ?: "",
+                                                                            password = textFieldValues.find { it.first == "passwordText" }?.second
+                                                                                ?: ""
+                                                                        )
+                                                                    ) {
+                                                                        NavController.navigate(
+                                                                            screenName
+                                                                        )
+                                                                        textFieldValues.clear()
+                                                                    } else {
+                                                                        ActionType_SnackBar(
+                                                                            context = context,
+                                                                            message = "Invalid Credentials",
+                                                                            duration = "short"
+                                                                        )
+                                                                    }
+                                                                } else {
+                                                                    NavController.navigate(
+                                                                        screenName
+                                                                    )
+                                                                }
+                                                            }
+
+                                                            "dialog" -> {
+                                                                val subtype =
+                                                                    it["subtype"] as String
+                                                                when (subtype) {
+                                                                    "alert" -> {
+                                                                        dialogTitle =
+                                                                            it["title"] as String
+                                                                        dialogMessage =
+                                                                            it["message"] as String
+                                                                        if (textFieldValues.find { it.first == "usernameText" }?.second == "12345" && textFieldValues.find { it.first == "passwordText" }?.second == "12345") {
+                                                                            showalertdialog =
+                                                                                true
+                                                                        }
+                                                                    }
+
+                                                                    "simple" -> {
+                                                                        dialogTitle =
+                                                                            it["title"] as String
+                                                                        dialogMessage =
+                                                                            it["message"] as String
+                                                                        if (textFieldValues.find { it.first == "usernameText" }?.second == "12345" && textFieldValues.find { it.first == "passwordText" }?.second == "12345") {
+                                                                            showsimpledialog =
+                                                                                true
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+
+                                                            "url" -> {
+                                                                val url_address =
+                                                                    it["url_address"] as String
+                                                                ActionType_Url(
+                                                                    url = url_address,
+                                                                    context = context,
+                                                                )
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                if (showalertdialog) {
+                                                    ActionType_Alert(
+                                                        onDismissRequest = {
+                                                            showalertdialog = false
+                                                        },
+                                                        onConfirmation = {
+                                                            showalertdialog = true
+                                                        },
+                                                        dialogTitle = dialogTitle,
+                                                        dialogText = dialogMessage,
+                                                    )
+                                                }
+
+                                                if (showsimpledialog) {
+                                                    ActionType_SimpleDialog(
+                                                        onDismissRequest = {
+                                                            showsimpledialog = false
+                                                        },
+                                                        dialogTitle = dialogTitle,
+                                                        dialogText = dialogMessage
+                                                    )
+                                                }
+
+
+                                                val text = contentItem[contentId].toString()
+
+
+                                                when (buttonType) {
+                                                    "elevated" -> {
+                                                        ButtonElevated(
+                                                            text = text,
+                                                            bgColor = bgColor,
+                                                            textColor = "#fcfdff",
+                                                            fontSize = font_size,
+                                                            fontWeight = font_weight,
+                                                            onclick = onclick,
+                                                            modifier = Modifier
+                                                                .then(buttonPadding),
+                                                        )
+                                                    }
+
+                                                    "text" -> {
+                                                        ButtonText(
+                                                            text = text,
+                                                            textColor = "#0f0f0f",
+                                                            fontSize = font_size,
+                                                            fontWeight = font_weight,
+                                                            onclick = onclick,
+                                                            modifier = Modifier
+                                                                .then(buttonPadding),
+                                                        )
+                                                    }
+
+                                                    "filled" -> {
+                                                        ButtonFilled(
+                                                            text = text,
+                                                            textColor = "#0f0f0f",
+                                                            fontSize = font_size,
+                                                            fontWeight = font_weight,
+                                                            onclick = onclick,
+                                                            modifier = Modifier
+                                                                .then(buttonPadding),
+                                                        )
+                                                    }
+
+                                                    "icon" -> {
+                                                        val icon =
+                                                            templateItem["icon"] as String
+                                                        ButtonIcon(
+                                                            onclick = onclick,
+                                                            icon = icon
+                                                        )
+                                                    }
+
+                                                    "floatingAction" -> {
+                                                        val icon =
+                                                            templateItem["icon"] as String
+                                                        ButtonFloatingAction(
+                                                            onclick = onclick,
+                                                            icon = icon,
+                                                        )
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                 },
-                                modifier = Modifier
                             )
                         }
 
@@ -1299,7 +1562,7 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                             val buttonPadding =
                                 paddingValues(path = contentItem["margins"])
                             val bgColor =
-                                (contentItem["backgroundColor"] as String)
+                                (contentItem["backgroundColor"] as? String) ?: "#FF694ced"
                             val action =
                                 contentItem["action"] as Map<*, *>
                             val onclick: () -> Unit = {
@@ -1454,6 +1717,17 @@ fun Screen(modifier: Modifier = Modifier, id: Int, NavController: NavController)
                                     )
                                 }
                             }
+                        }
+
+                        "image" -> {
+                            val image_url = contentItem["image_url"] as String
+                            AsyncImage(
+                                model = image_url,
+                                contentDescription = null,
+                                Modifier
+                                    .padding(top = 20.dp)
+                                    .fillMaxWidth()
+                            )
                         }
                     }
                 }

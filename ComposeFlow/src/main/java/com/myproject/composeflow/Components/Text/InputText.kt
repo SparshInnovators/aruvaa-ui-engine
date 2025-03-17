@@ -9,12 +9,15 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.material.icons.filled.Details
 import androidx.compose.material.icons.filled.EditLocation
 import androidx.compose.material.icons.filled.EditLocationAlt
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Sms
 import androidx.compose.material.icons.filled.Whatsapp
+import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.KeyboardArrowDown
@@ -196,5 +199,7 @@ val mapStringToIcon = mapOf(
     "whatsapp" to Icons.Filled.Whatsapp,
     "status" to Icons.Filled.AccessTime,
     "activity" to Icons.Filled.CalendarToday,
-    "check-in" to Icons.Filled.EditLocationAlt
+    "check-in" to Icons.Filled.EditLocationAlt,
+    "description" to Icons.Outlined.Description,
+    "information" to Icons.Outlined.Info
 )

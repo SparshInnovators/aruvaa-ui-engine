@@ -1,6 +1,11 @@
 package com.myproject.composeflow.Components.Layouts.Vertical
 
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.TabRowDefaults.Divider
 import androidx.compose.runtime.Composable
@@ -15,7 +20,10 @@ fun DynamicColumn(
     modifier: Modifier = Modifier, itemCount: Int,
     content: @Composable (index: Int) -> Unit
 ) {
-    LazyColumn(modifier = Modifier) {
+    LazyColumn(
+        modifier = modifier,
+    ) {
+
         items(itemCount) { index ->
             content(index)
             if (index < itemCount - 1) {

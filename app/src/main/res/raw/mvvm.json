@@ -10,6 +10,15 @@
     },
     "items": [
       {
+        "type": "text-title",
+        "font_size": 45,
+        "font_weight": "bold",
+        "margins": {
+          "top": 10
+        },
+        "#text": "heading"
+      },
+      {
         "type": "layout",
         "orientation": "vertical",
         "itemCount": 10,
@@ -54,11 +63,12 @@
               {
                 "type": "button",
                 "subtype": "icon",
-                "icon": "location",
+                "icon": "information",
                 "size": 20,
                 "action": {
                   "type": "navigate",
-                  "destination": "screen2"
+                  "destination": "screen2",
+                  "actionType": ""
                 },
                 "margins": {
                   "bottom": 16,
@@ -179,7 +189,7 @@
     "items": [
       {
         "type": "mvvmPage",
-        "icon-call": "abcd"
+        "heading": "List Items"
       }
     ]
   }

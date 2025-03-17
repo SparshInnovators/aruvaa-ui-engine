@@ -4,13 +4,9 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.myproject.testingframework.R
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.jsonObject
 
 fun JsonFileParsing(context: Context): List<Map<*, *>> {
-    val ResId = R.raw.signupdata
+    val ResId = R.raw.signup
     val jsonString = context.resources.openRawResource(ResId).bufferedReader().use { it.readText() }
 
     val obj = JsonParser.parseString(jsonString).asJsonObject
