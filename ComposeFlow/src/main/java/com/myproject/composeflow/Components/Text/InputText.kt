@@ -53,6 +53,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.util.Logger
 import com.myproject.composeflow.Components.Design.paddingValues
+import com.myproject.composeflow.Utils.mapIcon
 
 
 @Composable
@@ -96,7 +97,7 @@ fun SingleLineInputText(
         value = value,
         maxLines = 1,
         leadingIcon = suffixIcon?.lowercase()?.let { icon ->
-            mapStringToIcon[icon]?.let {
+            mapIcon(icon).let {
                 { Icon(it, contentDescription = null) }
             }
         },
@@ -136,9 +137,9 @@ fun SingleLineInputText(
             },
         shape = RoundedCornerShape(12.dp),
         colors = OutlinedTextFieldDefaults.colors(
-            focusedContainerColor = Color.Gray.copy(alpha = 0.1f),
-            unfocusedContainerColor = Color.Gray.copy(alpha = 0.1f),
-//            errorContainerColor = Color.Red.copy(alpha = 0.1f),
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color.White,
+            errorContainerColor = Color.White,
             focusedBorderColor = if (showError) Color.Red else Color.Gray,
             unfocusedBorderColor = if (showError) Color.Red else Color.Gray,
             errorBorderColor = Color.Red

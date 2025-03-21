@@ -94,11 +94,9 @@ fun DropDownOption(
                 )
             },
             colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = if (showError) Color.Red.copy(alpha = 0.1f)
-                else Color.Gray.copy(alpha = 0.1f),
-                unfocusedContainerColor = if (showError) Color.Red.copy(alpha = 0.1f)
-                else Color.Gray.copy(alpha = 0.1f),
-//                errorContainerColor = Color.Red.copy(alpha = 0.1f),
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                errorContainerColor = Color.White,
                 focusedBorderColor = if (showError) Color.Red else Color.Gray,
                 unfocusedBorderColor = if (showError) Color.Red else Color.Gray,
                 errorBorderColor = Color.Red

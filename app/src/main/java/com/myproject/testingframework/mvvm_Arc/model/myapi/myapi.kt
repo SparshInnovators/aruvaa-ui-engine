@@ -2,6 +2,7 @@ package com.myproject.testingframework.mvvm_Arc.model.myapi
 
 import android.util.Log
 import com.myproject.testingframework.divkitSample.data
+import com.myproject.testingframework.mvvm_Arc.model.DataManager.DataManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -59,6 +60,7 @@ class MyRepository @Inject constructor(private val myApi: MyApi) {
 
             Log.d("Ankit Raj", dataList.toString())
             _organizationList.emit(dataList)
+            DataManager.organizationDataList = dataList
         } else {
             Log.e("Ankit Raj", "Error: ${response.errorBody()?.string()}")
         }

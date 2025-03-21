@@ -2,6 +2,7 @@ package com.myproject.composeflow.Components.Button
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonElevation
@@ -25,6 +26,7 @@ fun ButtonElevated(
     fontSize: Int = 20,
     fontWeight: FontWeight,
     width: Dp? = null,
+    wrapContent: Boolean = false,
     onclick: () -> Unit
 ) {
     ElevatedButton(
@@ -34,7 +36,13 @@ fun ButtonElevated(
             containerColor = if (bgColor != null) Color(bgColor.toColorInt()) else ButtonDefaults.buttonColors().containerColor,
             contentColor = if (textColor != null) Color(textColor.toColorInt()) else ButtonDefaults.buttonColors().contentColor
         ),
-        modifier = modifier.then(if (width != null) Modifier.width(width) else Modifier.fillMaxWidth())
+        modifier = modifier.then(
+            when {
+                wrapContent -> Modifier.wrapContentWidth()
+                width != null -> Modifier.width(width)
+                else -> Modifier.fillMaxWidth()
+            }
+        )
     ) {
         Text(
             text,

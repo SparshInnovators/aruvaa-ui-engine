@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,7 +38,7 @@ fun VerticalContainer(
                     else -> it.fillMaxHeight()
                 }
             },
-        verticalArrangement = Arrangement.spacedBy(2.dp),
+//        verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
         contents()
     }

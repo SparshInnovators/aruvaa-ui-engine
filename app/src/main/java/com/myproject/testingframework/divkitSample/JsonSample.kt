@@ -7,7 +7,7 @@ val data = """
     "margins": {
       "bottom": 6
     },
-    "orientation": "vertical",
+    "orientation": "horizontal",
     "paddings": {
       "top": 10,
       "bottom": 0,

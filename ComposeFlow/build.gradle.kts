@@ -55,4 +55,13 @@ dependencies {
 
     implementation("androidx.compose.material:material-icons-extended:1.6.0")
 
+    //kotlin-json sereilization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+
+    //gson
+    implementation ("com.squareup.retrofit2:converter-gson:2.11.0")
+
+    //navigation
+    implementation("androidx.navigation:navigation-compose:2.8.6")
+
 }
