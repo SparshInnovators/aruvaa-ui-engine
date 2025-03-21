@@ -1,0 +1,91 @@
+{
+  "version": "1.0.0",
+  "Screen": {
+    "ScreenId": "01_login",
+    "ScreenName": "Login Screen",
+    "layout": {
+      "type": "SingleColumnLayout",
+      "padding": {
+        "top": 30,
+        "bottom": 0,
+        "left": 30,
+        "right": 30
+      },
+      "children": [
+        {
+          "type": "image",
+          "image_url": "https://img.lovepik.com/photo/45009/7677.jpg_wh860.jpg",
+          "padding": {
+            "bottom": 10
+          },
+          "height": 220
+        },
+        {
+          "type": "text",
+          "font_size": 45,
+          "font_weight": "bold",
+          "padding": {
+            "top": 10
+          },
+          "text": "Login"
+        },
+        {
+          "type": "text",
+          "font_size": 18,
+          "font_weight": "normal",
+          "padding": {
+            "bottom": 20
+          },
+          "text": "Please Sign in to continue."
+        },
+        {
+          "type": "SingleLineInputText",
+          "keyboardType": "text",
+          "font_size": 20,
+          "font_weight": "normal",
+          "suffixIcon": "Person",
+          "text": "Enter UserName"
+        },
+        {
+          "type": "SingleLineInputText",
+          "keyboardType": "password",
+          "font_size": 20,
+          "font_weight": "normal",
+          "suffixIcon": "Lock",
+          "text": "Enter Password"
+        },
+        {
+          "type": "button",
+          "subtype": "elevated",
+          "font_size": 25,
+          "font_weight": "normal",
+          "action": {
+            "type": "navigate",
+            "destination" : "03_home",
+            "actionType": "authenticate"
+          },
+          "padding": {
+            "bottom": 16,
+            "top": 10,
+            "left": 20,
+            "right": 20
+          },
+          "backgroundColor": "#FF694ced",
+          "text": "Submit"
+        },
+        {
+          "type": "button",
+          "subtype": "text",
+          "font_size": 15,
+          "font_weight": "normal",
+          "action": {
+            "type": "navigate",
+            "destination" : "02_signup",
+            "actionType": ""
+          },
+          "text": "Don't have an account? Signup"
+        }
+      ]
+    }
+  }
+}

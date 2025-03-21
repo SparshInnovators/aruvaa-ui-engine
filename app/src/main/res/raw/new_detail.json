@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "Screen": {
+    "ScreenId": "04_detail",
+    "ScreenName": "Details Screen",
+    "layout": {
+      "type": "GridLayout",
+      "children": [
+        {
+          "type": "text"
+        }
+      ]
+    }
+  }
+}

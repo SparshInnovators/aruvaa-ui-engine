@@ -1,0 +1,102 @@
+{
+  "version": "1.0.0",
+  "Screen": {
+    "ScreenId": "03_home",
+    "ScreenName": "Home Screen",
+    "layout": {
+      "type": "ScaffoldLayout",
+      "padding": {
+        "left": 5,
+        "right": 5,
+        "bottom": 10
+      },
+      "topBar": {
+        "title": "Home Screen",
+        "font_size": "22",
+        "textColor": "#f5f7fa",
+        "textAlign": "start",
+        "bgColor": "",
+        "suffixIcon": [
+          "menu"
+        ],
+        "prefixButton": []
+      },
+      "bottomBar": {
+      },
+      "children": [
+        {
+          "type": "ItemLayout",
+          "children": [
+            {
+              "type": "text",
+              "font_size": 35,
+              "font_weight": "bold",
+              "padding": {
+                "top": 10,
+                "bottom": 10
+              },
+              "text": "Organization List"
+            },
+            {
+              "type": "list",
+              "itemCount": 20,
+              "padding": {
+                "left": 10,
+                "right": 10
+              },
+              "children": {
+                "type": "SingleRowLayout",
+                "children": [
+                  {
+                    "type": "image",
+                    "image_url": "https://cdn11.bigcommerce.com/s-3uewkq06zr/images/stencil/1280x1280/products/234/413/fluorescent_blue__34881.1492487711.png?c=2",
+                    "padding": {
+                      "top": 10,
+                      "bottom": 10
+                    },
+                    "height": 80
+                  },
+                  {
+                    "type": "VerticalContainer",
+                    "padding": {
+                      "left": 10
+                    },
+                    "children": [
+                      {
+                        "type": "text",
+                        "font_size": 18,
+                        "font_weight": "semi-bold",
+                        "color": "#bfbcbb",
+                        "$text": "name"
+                      },
+                      {
+                        "type": "text",
+                        "font_size": 15,
+                        "font_weight": "normal",
+                        "$text": "address"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "button",
+                    "subtype": "icon",
+                    "icon": "information",
+                    "size": 30,
+                    "action": {
+                      "type": "navigate",
+                      "destination": "04_detail",
+                      "actionType": ""
+                    },
+                    "padding": {
+                      "right": 10
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

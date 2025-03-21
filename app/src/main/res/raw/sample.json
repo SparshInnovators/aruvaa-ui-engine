@@ -1,0 +1,57 @@
+{
+  "version": "1.0.0",
+  "Screen": {
+    "ScreenId": "",
+    "ScreenName": "",
+    "layout": {
+      "type": "",
+      "background": "#4b45f7",
+      "padding": {
+        "bottom": 10,
+        "top": 10,
+        "left": 5,
+        "right": 5
+      },
+      "children": [
+        {
+          "type": "text",
+          "font_size": 20,
+          "font_weight": "semi-bold",
+          "bgColor": "#b6a9c2",
+          "margins": {
+            "right": 5,
+            "top": 3,
+            "bottom": 3
+          },
+          "text": "basicInfo"
+        },
+        {
+          "type": "inputText",
+          "keyboardType": "text",
+          "font_size": 15,
+          "font_weight": "normal",
+          "maxLines": 1,
+          "margins": {
+            "left": 5,
+            "right": 5,
+            "top": 5
+          },
+          "text": "gstr"
+        },
+        {
+          "type": "inputText",
+          "keyboardType": "text",
+          "font_size": 15,
+          "font_weight": "normal",
+          "maxLines": 1,
+          "isRequired": true,
+          "margins": {
+            "left": 5,
+            "right": 5
+          },
+          "$text": "AccName"
+        }
+      ]
+    }
+  }
+}
