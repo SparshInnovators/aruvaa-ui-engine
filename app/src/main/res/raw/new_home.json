@@ -84,7 +84,7 @@
                     "size": 30,
                     "action": {
                       "type": "navigate",
-                      "destination": "04_detail",
+                      "destination": "aruvaa/04_detail",
                       "actionType": ""
                     },
                     "padding": {

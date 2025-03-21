@@ -91,6 +91,8 @@ dependencies {
 
     implementation("androidx.datastore:datastore-preferences:1.1.3")
 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+
 
 }
 

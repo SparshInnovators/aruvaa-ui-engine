@@ -65,12 +65,23 @@ import com.myproject.testingframework.mvvm_Arc.viewmodel.MyViewModel
 import dagger.hilt.android.EntryPointAccessors
 
 @Composable
-fun DynamicLayoutScreen(modifier: Modifier = Modifier, id: Int, NavController: NavController) {
+fun DynamicLayoutScreen(modifier: Modifier = Modifier, id: String, NavController: NavController) {
     //context
     val context = LocalContext.current
 
+    var ResId = R.raw.new_login
+    if (id == "01_login") {
+        ResId = R.raw.new_login
+    } else if (id == "02_signup") {
+        ResId = R.raw.new_signup
+    } else if (id == "03_home") {
+        ResId = R.raw.new_home
+    } else if (id == "04_detail") {
+        ResId = R.raw.new_detail
+    }
+
     //Screen Data
-    val uiData = ParseLocalJson(context = context, id = id)
+    val uiData = ParseLocalJson(context = context, id = ResId)
 
     val name = uiData["ScreenName"] as String
     val screenId = uiData["ScreenId"] as? String ?: ""

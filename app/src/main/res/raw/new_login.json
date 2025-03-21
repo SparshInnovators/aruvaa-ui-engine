@@ -61,7 +61,7 @@
           "font_weight": "normal",
           "action": {
             "type": "navigate",
-            "destination" : "03_home",
+            "destination" : "aruvaa/03_home",
             "actionType": "authenticate"
           },
           "padding": {
@@ -80,7 +80,7 @@
           "font_weight": "normal",
           "action": {
             "type": "navigate",
-            "destination" : "02_signup",
+            "destination" : "aruvaa/02_signup",
             "actionType": ""
           },
           "text": "Don't have an account? Signup"
