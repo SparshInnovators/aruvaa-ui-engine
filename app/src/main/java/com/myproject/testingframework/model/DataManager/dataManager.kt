@@ -1,6 +1,6 @@
-package com.myproject.testingframework.mvvm_Arc.model.DataManager
+package com.myproject.testingframework.model.DataManager
 
-import com.myproject.testingframework.mvvm_Arc.model.myapi.MyRepository
+import com.myproject.testingframework.model.myapi.MyRepository
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent

@@ -40,6 +40,7 @@
         },
         {
           "type": "SingleLineInputText",
+          "id": "username_id",
           "keyboardType": "text",
           "font_size": 20,
           "font_weight": "normal",
@@ -48,6 +49,7 @@
         },
         {
           "type": "SingleLineInputText",
+          "id": "password_id",
           "keyboardType": "password",
           "font_size": 20,
           "font_weight": "normal",

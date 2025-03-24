@@ -1,4 +1,4 @@
-package com.myproject.testingframework.mvvm_Arc.view
+package com.myproject.testingframework.view
 
 import android.widget.Space
 import android.window.SplashScreen

@@ -20,12 +20,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.myproject.testingframework.mvvm_Arc.view.DynamicLayoutScreen
-import com.myproject.testingframework.mvvm_Arc.view.SplashScreen
+import com.myproject.testingframework.view.DynamicLayoutScreen
+import com.myproject.testingframework.view.SampleScreen
+import com.myproject.testingframework.view.SplashScreen
+import com.myproject.testingframework.viewmodel.MyViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,14 +38,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
-            Navigation(navController = navController)
+            val myVm: MyViewModel = hiltViewModel()
+            Navigation(navController = navController, myVm = myVm)
+//            SampleScreen()
         }
     }
 }
 
 
 @Composable
-fun Navigation(modifier: Modifier = Modifier, navController: NavHostController) {
+fun Navigation(modifier: Modifier = Modifier, navController: NavHostController, myVm: MyViewModel) {
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -61,19 +66,13 @@ fun Navigation(modifier: Modifier = Modifier, navController: NavHostController) 
 
                 DynamicLayoutScreen(
                     id = screen,
-                    NavController = navController
+                    NavController = navController,
+                    myVm = myVm
                 )
             }
         }
     )
 }
-
-val screenList = listOf("formScreen", "SignUpPage", "mvvmPage", "screen2")
-val jsonId = listOf(R.raw.login, R.raw.signup, R.raw.mvvm, R.raw.screen2)
-
-//new screen list and ids
-val screenListNew = listOf("01_login", "02_signup", "03_home", "04_detail")
-val jsonIdNew = listOf(R.raw.new_login, R.raw.new_signup, R.raw.new_home, R.raw.new_detail)
 
 
 @OptIn(ExperimentalFoundationApi::class)

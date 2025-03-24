@@ -1,8 +1,7 @@
-package com.myproject.testingframework.mvvm_Arc.model.myapi
+package com.myproject.testingframework.model.myapi
 
 import android.util.Log
-import com.myproject.testingframework.divkitSample.data
-import com.myproject.testingframework.mvvm_Arc.model.DataManager.DataManager
+import com.myproject.testingframework.model.DataManager.DataManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -58,7 +57,6 @@ class MyRepository @Inject constructor(private val myApi: MyApi) {
             val dataList =
                 responseBody["organizations"] as? List<Map<String, String>> ?: emptyList()
 
-            Log.d("Ankit Raj", dataList.toString())
             _organizationList.emit(dataList)
             DataManager.organizationDataList = dataList
         } else {

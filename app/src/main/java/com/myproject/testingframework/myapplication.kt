@@ -4,9 +4,8 @@ import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.myproject.testingframework.mvvm_Arc.model.DataManager.DataManager
-import com.myproject.testingframework.mvvm_Arc.model.myapi.MyRepository
-import com.myproject.testingframework.mvvm_Arc.viewmodel.MyViewModel
+import com.myproject.testingframework.model.DataManager.DataManager
+import com.myproject.testingframework.model.myapi.MyRepository
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope

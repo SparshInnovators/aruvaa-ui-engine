@@ -1,11 +1,10 @@
-package com.myproject.testingframework.mvvm_Arc.view
+package com.myproject.testingframework.view
 
+import android.annotation.SuppressLint
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,17 +15,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -49,45 +49,41 @@ import com.myproject.composeflow.Components.Layouts.SingleColumnLayout
 import com.myproject.composeflow.Components.Layouts.SingleRowLayout
 import com.myproject.composeflow.Components.Text.SingleLineInputText
 import com.myproject.composeflow.Components.Text.SubtitleText
-import com.myproject.composeflow.Components.Text.fontWeightMap
-import com.myproject.composeflow.Components.Text.mapToKeyboardType
-import com.myproject.composeflow.Utils.JsonParsing.ParseLocalJson
+import com.myproject.composeflow.Utils.JsonParsing.ParseJsonString
 import com.myproject.composeflow.Utils.Padding.paddingValues
 import com.myproject.composeflow.Utils.mapFontWeight
-import com.myproject.composeflow.Utils.mapIcon
 import com.myproject.composeflow.Utils.mapKeyBoardType
 import com.myproject.composeflow.Utils.searchData
-import com.myproject.composeflow.globalMap.textFieldValues
-import com.myproject.testingframework.R
-import com.myproject.testingframework.mvvm_Arc.model.DataManager.DataManager
-import com.myproject.testingframework.mvvm_Arc.model.functions.AuthenticateUser
-import com.myproject.testingframework.mvvm_Arc.viewmodel.MyViewModel
-import dagger.hilt.android.EntryPointAccessors
+import com.myproject.testingframework.model.DataManager.DataManager
+import com.myproject.testingframework.viewmodel.MyViewModel
 
 @Composable
-fun DynamicLayoutScreen(modifier: Modifier = Modifier, id: String, NavController: NavController) {
+fun DynamicLayoutScreen(
+    modifier: Modifier = Modifier,
+    id: String,
+    NavController: NavController,
+    myVm:MyViewModel
+) {
     //context
     val context = LocalContext.current
 
-    var ResId = R.raw.new_login
-    if (id == "01_login") {
-        ResId = R.raw.new_login
-    } else if (id == "02_signup") {
-        ResId = R.raw.new_signup
-    } else if (id == "03_home") {
-        ResId = R.raw.new_home
-    } else if (id == "04_detail") {
-        ResId = R.raw.new_detail
+    //viewmodel
+//    val myVm: MyViewModel = hiltViewModel(LocalContext.current as ComponentActivity)
+    LaunchedEffect(id) {
+        myVm.fetchJsonData(screenId = id)
     }
 
     //Screen Data
-    val uiData = ParseLocalJson(context = context, id = ResId)
+    val data = myVm.fetchedJsonData.observeAsState()
+    val uiData = data.value?.jsonData?.takeIf { it.isNotEmpty() }?.let { json ->
+        ParseJsonString(json)
+    } ?: emptyMap<Any, Any>()
 
-    val name = uiData["ScreenName"] as String
-    val screenId = uiData["ScreenId"] as? String ?: ""
-    val layoutData = uiData["layout"] as Map<*, *>
+    val name = uiData["ScreenName"] as? String ?: "Unknown Screen"
+    val screenId = uiData["ScreenId"] as? String ?: "Unknown ID"
+    val layoutData = uiData["layout"] as? Map<*, *> ?: emptyMap<Any, Any>()
 
-    val layoutType = layoutData["type"] as String
+    val layoutType = layoutData["type"] as? String ?: "Unknown Type"
 
 
     //Dialog
@@ -100,7 +96,7 @@ fun DynamicLayoutScreen(modifier: Modifier = Modifier, id: String, NavController
     val screenPadding = paddingValues(path = layoutData["padding"])
 
     //layoutChildren
-    val layoutChildren = layoutData["children"] as List<*>
+    val layoutChildren = (layoutData["children"] as? List<*>) ?: emptyList<Any>()
 
     //coroutine Scope and drawerState
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -149,6 +145,7 @@ fun DynamicLayoutScreen(modifier: Modifier = Modifier, id: String, NavController
                         }
 
                         "SingleLineInputText" -> {
+                            val inputId = item1Data["id"] as String
                             val inputPadding = paddingValues(path = item1Data["padding"])
                             val keyboardType =
                                 mapKeyBoardType(keyboardType = item1Data["keyboardType"] as String)
@@ -163,12 +160,20 @@ fun DynamicLayoutScreen(modifier: Modifier = Modifier, id: String, NavController
                                 searchData(key = item1Data["\$text"] as String) as String
                             }
 
+                            val userInputFields by myVm.formData.collectAsState()
+
                             SingleLineInputText(
                                 keyboardType = keyboardType,
                                 fontWeight = fontWeight,
                                 hintText = text,
-                                value = "",
-                                onValueChange = {},
+                                value = userInputFields[screenId]?.get(inputId) ?: "",
+                                onValueChange = { newValue ->
+                                    myVm.updateField(
+                                        screenId = screenId,
+                                        fieldId = inputId,
+                                        value = newValue
+                                    )
+                                },
                                 isRequired = false,
                                 font_size = fontSize,
                                 suffixIcon = suffixIcon,
@@ -212,6 +217,8 @@ fun DynamicLayoutScreen(modifier: Modifier = Modifier, id: String, NavController
                                             val destinationScreen =
                                                 act["destination"] as? String ?: ""
                                             val actionType = act["actionType"] as? String ?: ""
+
+                                            myVm.saveFormData(screenId)
 
                                             NavController.navigate(destinationScreen)
                                         }
@@ -438,6 +445,8 @@ fun DynamicLayoutScreen(modifier: Modifier = Modifier, id: String, NavController
                                                                                 }
 
                                                                                 "SingleLineInputText" -> {
+                                                                                    val inputId =
+                                                                                        vItemData["id"] as String
                                                                                     val inputPadding =
                                                                                         paddingValues(
                                                                                             path = vItemData["padding"]
@@ -474,12 +483,22 @@ fun DynamicLayoutScreen(modifier: Modifier = Modifier, id: String, NavController
                                                                                             )
                                                                                         }
 
+                                                                                    val userInputFields by myVm.formData.collectAsState()
+
                                                                                     SingleLineInputText(
                                                                                         keyboardType = keyBoardType,
                                                                                         fontWeight = fontWeight,
                                                                                         hintText = hintText,
-                                                                                        value = "",
-                                                                                        onValueChange = {},
+                                                                                        value = userInputFields[screenId]?.get(
+                                                                                            inputId
+                                                                                        ) ?: "",
+                                                                                        onValueChange = {
+                                                                                            myVm.updateField(
+                                                                                                screenId = screenId,
+                                                                                                fieldId = inputId,
+                                                                                                value = it
+                                                                                            )
+                                                                                        },
                                                                                         isRequired = isRequired,
                                                                                         font_size = fontSize,
                                                                                         suffixIcon = suffixIcon,
@@ -506,6 +525,8 @@ fun DynamicLayoutScreen(modifier: Modifier = Modifier, id: String, NavController
                                                                                                     rItemData["type"] as String
                                                                                                 when (rItemType) {
                                                                                                     "SingleLineInputText" -> {
+                                                                                                        val inputId =
+                                                                                                            rItemData["id"] as String
                                                                                                         val inputPadding =
                                                                                                             paddingValues(
                                                                                                                 path = rItemData["padding"]
@@ -541,13 +562,23 @@ fun DynamicLayoutScreen(modifier: Modifier = Modifier, id: String, NavController
                                                                                                                     key = rItemData["\$text"] as String
                                                                                                                 )
                                                                                                             }
+                                                                                                        val userInputFields by myVm.formData.collectAsState()
 
                                                                                                         SingleLineInputText(
                                                                                                             keyboardType = keyBoardType,
                                                                                                             fontWeight = fontWeight,
                                                                                                             hintText = hintText,
-                                                                                                            value = "",
-                                                                                                            onValueChange = {},
+                                                                                                            value = userInputFields[screenId]?.get(
+                                                                                                                inputId
+                                                                                                            )
+                                                                                                                ?: "",
+                                                                                                            onValueChange = {
+                                                                                                                myVm.updateField(
+                                                                                                                    screenId = screenId,
+                                                                                                                    fieldId = inputId,
+                                                                                                                    value = it
+                                                                                                                )
+                                                                                                            },
                                                                                                             isRequired = isRequired,
                                                                                                             font_size = fontSize,
                                                                                                             suffixIcon = suffixIcon,
@@ -843,6 +874,7 @@ fun DynamicLayoutScreen(modifier: Modifier = Modifier, id: String, NavController
                                                                                     val actionType =
                                                                                         act["actionType"] as? String
                                                                                             ?: ""
+
 
                                                                                     NavController.navigate(
                                                                                         destinationScreen
@@ -1225,6 +1257,7 @@ fun DynamicLayoutScreen(modifier: Modifier = Modifier, id: String, NavController
                                                                     act["actionType"] as? String
                                                                         ?: ""
 
+
                                                                 NavController.navigate(
                                                                     destinationScreen
                                                                 )
@@ -1391,7 +1424,14 @@ fun DynamicLayoutScreen(modifier: Modifier = Modifier, id: String, NavController
         }
 
         "GridLayout" -> {
-            Text("Detail Screen")
+            Text(
+                myVm.getFieldValue(
+                    screenId = "01_login",
+                    fieldId = "input2"
+                ) ,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
         }
     }
 }
