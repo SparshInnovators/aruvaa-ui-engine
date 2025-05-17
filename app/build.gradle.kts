@@ -104,6 +104,11 @@ dependencies {
     ksp("androidx.room:room-compiler:$room_version")
 
 
+    implementation ("com.google.accompanist:accompanist-permissions:0.37.2")
+
+    implementation ("com.google.android.gms:play-services-location:21.3.0")
+
+
 }
 
 kapt {

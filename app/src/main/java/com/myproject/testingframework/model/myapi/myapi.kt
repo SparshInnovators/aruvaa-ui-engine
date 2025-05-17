@@ -1,13 +1,12 @@
 package com.myproject.testingframework.model.myapi
 
 import android.util.Log
-import com.myproject.testingframework.model.DataManager.DataManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.serialization.json.JsonElement
+import kotlinx.coroutines.flow.StateFlow
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -48,7 +47,7 @@ class NetworkModule {
 class MyRepository @Inject constructor(private val myApi: MyApi) {
 
     private val _organizationList = MutableStateFlow<List<Map<String, String>>>(emptyList())
-    val organizationList = _organizationList
+    val organizationList: StateFlow<List<Map<String, String>>> = _organizationList
 
     suspend fun fetchOrganizationData() {
         val response = myApi.getOrganizationData()
@@ -58,7 +57,7 @@ class MyRepository @Inject constructor(private val myApi: MyApi) {
                 responseBody["organizations"] as? List<Map<String, String>> ?: emptyList()
 
             _organizationList.emit(dataList)
-            DataManager.organizationDataList = dataList
+//            DataManager.organizationDataList = dataList
         } else {
             Log.e("Ankit Raj", "Error: ${response.errorBody()?.string()}")
         }

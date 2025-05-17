@@ -8,11 +8,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Attachment
 import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.material.icons.filled.CorporateFare
 import androidx.compose.material.icons.filled.Details
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.EditLocation
 import androidx.compose.material.icons.filled.EditLocationAlt
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Map
+import androidx.compose.material.icons.filled.PhoneAndroid
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Sms
@@ -202,5 +209,13 @@ val mapStringToIcon = mapOf(
     "activity" to Icons.Filled.CalendarToday,
     "check-in" to Icons.Filled.EditLocationAlt,
     "description" to Icons.Outlined.Description,
-    "information" to Icons.Outlined.Info
+    "information" to Icons.Outlined.Info,
+    "arrow_back" to Icons.Default.ArrowBack,
+    "map" to Icons.Default.Map,
+    "edit" to Icons.Default.Edit,
+    "office_building" to Icons.Default.CorporateFare,
+    "phone" to Icons.Default.PhoneAndroid,
+    "add" to Icons.Default.Add,
+    "attachment" to Icons.Default.Attachment
+
 )

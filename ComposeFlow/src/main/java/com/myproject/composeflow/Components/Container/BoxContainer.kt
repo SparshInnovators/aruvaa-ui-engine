@@ -28,7 +28,7 @@ fun BoxContainer(
 ) {
     Box(
         modifier = modifier
-            .padding(vertical = 5.dp)
+//            .padding(vertical = 5.dp)
             .fillMaxWidth()
             .let {
                 when {

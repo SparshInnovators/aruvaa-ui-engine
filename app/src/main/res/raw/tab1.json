@@ -1,0 +1,171 @@
+{
+  "version": "1.0.0",
+  "Screen": {
+    "ScreenId": "01_detail_tab",
+    "ScreenName": "Tab 1 Screen",
+    "layout": {
+      "type": "SingleColumnLayout",
+      "padding": 5,
+      "children": [
+        {
+          "type": "BoxContainer",
+          "wrapContentHeight": true,
+          "padding": {
+            "right": 5
+          },
+          "children": [
+            {
+              "type": "VerticalContainer",
+              "wrapContentHeight": true,
+              "children": [
+                {
+                  "type": "SingleRowLayout",
+                  "padding": {
+                    "left": 10,
+                    "right": 10
+                  },
+                  "children": [
+                    {
+                      "type": "text",
+                      "font_size": 18,
+                      "font_weight": "bold",
+                      "padding": {
+                        "top": 5
+                      },
+                      "text": "Account Info"
+                    },
+                    {
+                      "type": "spacer"
+                    },
+                    {
+                      "type": "button",
+                      "subtype": "icon",
+                      "icon": "map",
+                      "padding": {
+                        "top": 5
+                      },
+                      "action": {
+                        "type": ""
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "subtype": "icon",
+                      "icon": "edit",
+                      "padding": {
+                        "top": 5
+                      },
+                      "action": {
+                        "type": ""
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "divider",
+                  "padding": {
+                    "left": 10,
+                    "right": 10
+                  }
+                },
+                {
+                  "type": "SingleRowLayout",
+                  "padding": {
+                    "left": 10,
+                    "right": 10
+                  },
+                  "children": [
+                    {
+                      "type": "button",
+                      "subtype": "icon",
+                      "icon": "office_building",
+                      "padding": {
+                        "left": 10,
+                        "right": 10
+                      },
+                      "action": {
+                        "type": ""
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "$text": "address"
+                    }
+                  ]
+                },
+                {
+                  "type": "SingleRowLayout",
+                  "padding": {
+                    "left": 10,
+                    "right": 10
+                  },
+                  "children": [
+                    {
+                      "type": "button",
+                      "subtype": "icon",
+                      "icon": "phone",
+                      "padding": {
+                        "left": 10,
+                        "right": 10
+                      },
+                      "action": {
+                        "type": ""
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "9372773744"
+                    },
+                    {
+                      "type": "spacer"
+                    },
+                    {
+                      "type": "button",
+                      "subtype": "icon",
+                      "icon": "phone",
+                      "padding": {
+                        "left": 10,
+                        "right": 10
+                      },
+                      "action": {
+                        "type": ""
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "9372773744"
+                    }
+                  ]
+                },
+                {
+                  "type": "SingleRowLayout",
+                  "padding": {
+                    "left": 10,
+                    "right": 10
+                  },
+                  "children": [
+                    {
+                      "type": "button",
+                      "subtype": "icon",
+                      "icon": "email",
+                      "action": {
+                        "type": ""
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "padding": {
+                        "bottom": 5
+                      },
+                      "text": "a@gmail.com"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

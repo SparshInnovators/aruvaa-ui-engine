@@ -14,11 +14,16 @@ import androidx.compose.ui.unit.dp
 fun SingleRowLayout(
     modifier: Modifier = Modifier,
     content: @Composable RowScope.() -> Unit,
-    spacedBy: Int? = 0
+    spacedBy: Int? = 0,
+    isCentered: Boolean = false
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy((spacedBy ?: 0).dp),
+        horizontalArrangement = if (isCentered) Arrangement.spacedBy(
+            spacedBy?.dp ?: 0.dp,
+            Alignment.CenterHorizontally
+        )
+        else Arrangement.spacedBy(spacedBy?.dp ?: 0.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         content()

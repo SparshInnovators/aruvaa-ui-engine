@@ -23,6 +23,7 @@ fun mapIcon(icon: String?): ImageVector {
         "home" -> Icons.Default.Home
         "settings" -> Icons.Default.Settings
         "logout" -> Icons.Default.Logout
+        "user" -> Icons.Default.Person
         else -> Icons.Default.HelpOutline
     }
 }

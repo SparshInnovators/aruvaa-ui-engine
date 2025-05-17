@@ -26,6 +26,7 @@ fun VerticalContainer(
     contents: @Composable () -> Unit,
     height: Dp? = null,
     width: Dp? = null,
+    spacedBy: Int? = null,
     wrapContentHeight: Boolean = false,
 ) {
     Column(
@@ -38,7 +39,7 @@ fun VerticalContainer(
                     else -> it.fillMaxHeight()
                 }
             },
-//        verticalArrangement = Arrangement.spacedBy(2.dp),
+        verticalArrangement = Arrangement.spacedBy((spacedBy ?: 0).dp),
     ) {
         contents()
     }
