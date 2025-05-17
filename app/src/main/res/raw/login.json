@@ -1,106 +1,93 @@
 {
-  "template": {
-    "name": "formScreen",
-    "orientation": "vertical",
-    "paddings": {
-      "top": 10,
-      "bottom": 0,
-      "left": 30,
-      "right": 30
-    },
-    "items": [
-      {
-        "type": "text-title",
-        "font_size": 45,
-        "font_weight": "bold",
-        "margins": {
-          "top": 10
-        },
-        "#text": "login-title"
+  "version": "1.0.0",
+  "Screen": {
+    "ScreenId": "01_login",
+    "ScreenName": "Login Screen",
+    "layout": {
+      "type": "SingleColumnLayout",
+      "padding": {
+        "top": 30,
+        "bottom": 0,
+        "left": 30,
+        "right": 30
       },
-      {
-        "type": "text-body",
-        "font_size": 18,
-        "font_weight": "normal",
-        "margins": {
-          "bottom": 20
+      "children": [
+        {
+          "type": "image",
+          "image_url": "https://img.lovepik.com/photo/45009/7677.jpg_wh860.jpg",
+          "padding": {
+            "bottom": 10
+          },
+          "height": 220
         },
-        "#text": "login-body"
-      },
-      {
-        "type": "inputText",
-        "keyboardType": "text",
-        "font_size": 20,
-        "font_weight": "normal",
-        "maxLines": 1,
-        "suffixIcon": "Person",
-        "#text": "usernameText"
-      },
-      {
-        "type": "inputText",
-        "keyboardType": "password",
-        "font_size": 20,
-        "font_weight": "normal",
-        "maxLines": 1,
-        "suffixIcon": "Lock",
-        "#text": "passwordText"
-      },
-      {
-        "type": "button",
-        "subtype": "elevated",
-        "font_size": 25,
-        "font_weight": "normal",
-        "action": {
-          "type": "navigate",
-          "destination" : "mvvmPage",
-          "actionType": "authenticate"
+        {
+          "type": "text",
+          "font_size": 45,
+          "font_weight": "bold",
+          "padding": {
+            "top": 10
+          },
+          "text": "Login"
         },
-        "margins": {
-          "bottom": 16,
-          "top": 10,
-          "left": 20,
-          "right": 20
+        {
+          "type": "text",
+          "font_size": 18,
+          "font_weight": "normal",
+          "padding": {
+            "bottom": 20
+          },
+          "text": "Please Sign in to continue."
         },
-        "backgroundColor": "#FF694ced",
-        "#text": "buttonText1"
-      }
-    ,
-      {
-        "type": "button",
-        "subtype": "text",
-        "font_size": 15,
-        "font_weight": "normal",
-        "action": {
-          "type": "navigate",
-          "destination" : "SignUpPage",
-          "actionType": ""
+        {
+          "type": "SingleLineInputText",
+          "id": "username_id",
+          "keyboardType": "text",
+          "font_size": 20,
+          "font_weight": "normal",
+          "suffixIcon": "Person",
+          "text": "Enter UserName"
         },
-        "#text": "SignUp-text"
-      }
-    ]
-  },
-  "card": {
-    "state_id": 0,
-    "items": [
-      {
-        "type": "image",
-        "image_url": "https://img.lovepik.com/photo/45009/7677.jpg_wh860.jpg",
-        "margins": {
-          "top": 10,
-          "right": 60,
-          "bottom": 10,
-          "left": 60
+        {
+          "type": "SingleLineInputText",
+          "id": "password_id",
+          "keyboardType": "password",
+          "font_size": 20,
+          "font_weight": "normal",
+          "suffixIcon": "Lock",
+          "text": "Enter Password"
+        },
+        {
+          "type": "button",
+          "subtype": "elevated",
+          "font_size": 25,
+          "font_weight": "normal",
+          "action": {
+            "type": "navigate",
+            "destination" : "aruvaa/03_home",
+            "actionType": "authenticate"
+          },
+          "padding": {
+            "bottom": 16,
+            "top": 10,
+            "left": 20,
+            "right": 20
+          },
+          "backgroundColor": "#FF694ced",
+          "text": "Submit"
+        },
+        {
+          "type": "button",
+          "subtype": "text",
+          "font_size": 15,
+          "font_weight": "normal",
+          "action": {
+            "type": "navigate",
+            "destination" : "aruvaa/02_signup",
+            "actionType": ""
+          },
+          "text": "Don't have an account? Signup"
         }
-      },
-      {
-        "login-title": "Login",
-        "login-body": "Please Sign in to continue.",
-        "type": "formScreen",
-        "usernameText": "Enter UserName",
-        "passwordText": "Enter Password",
-        "buttonText1": "Submit",
-        "SignUp-text":"Don't have an account? Signup"
-      }
-    ]
+      ]
+    }
   }
 }

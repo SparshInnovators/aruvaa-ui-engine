@@ -1,0 +1,79 @@
+{
+  "version": "1.0.0",
+  "Screen": {
+    "ScreenId": "03_related_tab",
+    "ScreenName": "Tab 3 Screen",
+    "layout": {
+      "type": "ItemLayout",
+      "children": [
+        {
+          "type": "list",
+          "itemCount": 7,
+          "padding": {
+            "left": 10,
+            "right": 10
+          },
+          "children": [
+            {
+              "type": "SingleRowLayout",
+              "padding": {
+                "left": 10,
+                "right": 10,
+                "top": 4,
+                "bottom": 7
+              },
+              "children": [
+                {
+                  "type": "Box",
+                  "shape": "circle",
+                  "bgColor": "#4557f7",
+                  "padding": {
+                    "right": 20,
+                    "bottom": 2,
+                    "top": 2
+                  },
+                  "size": 50
+                },
+                {
+                  "type": "text",
+                  "font_size": 20,
+                  "font_weight": "semi-bold",
+                  "$text": "related"
+                },
+                {
+                  "type": "spacer"
+                },
+                {
+                  "type": "text",
+                  "font_size": 20,
+                  "font_weight": "semi-bold",
+                  "color": "#4557f7",
+                  "padding": {
+                    "right": 5
+                  },
+                  "text": "0"
+                },
+                {
+                  "type": "button",
+                  "subtype": "icon",
+                  "icon": "add",
+                  "action": {
+                    "type": ""
+                  }
+                },
+                {
+                  "type": "button",
+                  "subtype": "icon",
+                  "icon": "attachment",
+                  "action": {
+                    "type": ""
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

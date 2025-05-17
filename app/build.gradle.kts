@@ -8,6 +8,9 @@ plugins {
     //Hilt
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+
+    //room db:
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -59,6 +62,7 @@ dependencies {
     implementation(project(":ComposeFlow"))
     implementation(libs.androidx.espresso.core)
     implementation(libs.androidx.foundation.layout.android)
+    implementation(libs.androidx.runtime.livedata)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -92,6 +96,17 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.1.3")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+
+    //room db:
+    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
+
+
+    implementation ("com.google.accompanist:accompanist-permissions:0.37.2")
+
+    implementation ("com.google.android.gms:play-services-location:21.3.0")
 
 
 }

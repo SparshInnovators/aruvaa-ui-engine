@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "Screen": {
+    "ScreenId": "05_sample",
+    "ScreenName": "Sample Screen",
+    "layout": {
+      "type": "ScaffoldLayout",
+      "padding": {
+        "left": 5,
+        "right": 5,
+        "bottom": 10
+      },
+      "topBar": {
+
+      },
+      "bottomBar": {
+      },
+      "children": [
+        {
+          "type": "SingleColumnLayout",
+          "children": [
+            {
+              "type": "abcd"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

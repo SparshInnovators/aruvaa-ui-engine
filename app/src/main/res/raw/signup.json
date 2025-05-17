@@ -1,370 +1,373 @@
 {
-  "template": {
-    "name": "SignUpPage",
-    "orientation": "vertical",
-    "background": "#4b45f7",
-    "paddings": {
-      "bottom": 10,
-      "top": 10,
-      "left": 5,
-      "right": 5
-    },
-    "items": [
-      {
-        "type": "verticalContainer",
-        "items": [
+  "version": "1.0.0",
+  "Screen": {
+    "ScreenId": "02_signup",
+    "ScreenName": "SignUp Screen",
+    "layout": {
+      "type": "ScaffoldLayout",
+      "padding": {
+        "left": 5,
+        "right": 5,
+        "bottom": 10
+      },
+      "topBar": {
+        "title": "Create Account",
+        "font_size": "22",
+        "textColor": "#000000",
+        "textAlign": "center",
+        "bgColor": "#fae7e6",
+        "suffixIcon": [
+          "arrow_back"
+        ],
+        "prefixButton": [
           {
-            "type": "boxContainer",
-            "paddings": {
-              "bottom": 3,
-              "top": 10,
-              "left": 5,
-              "right": 5
-            },
-            "contentHeight": "wrap",
-            "items": [
-              {
-                "type": "text",
-                "font_size": 20,
-                "font_weight": "semi-bold",
-                "bgColor": "#b6a9c2",
-                "margins": {
-                  "right": 5,
-                  "top": 3,
-                  "bottom": 3
-                },
-                "#text": "basicInfo"
-              },
-              {
-                "type": "inputText",
-                "keyboardType": "text",
-                "font_size": 15,
-                "font_weight": "normal",
-                "maxLines": 1,
-                "margins": {
-                  "left": 5,
-                  "right": 5,
-                  "top": 5
-                },
-                "#text": "gstr"
-              },
-              {
-                "type": "inputText",
-                "keyboardType": "text",
-                "font_size": 15,
-                "font_weight": "normal",
-                "maxLines": 1,
-                "isRequired": true,
-                "margins": {
-                  "left": 5,
-                  "right": 5
-                },
-                "#text": "AccName"
-              },
-              {
-                "type": "horizontalContainer",
-                "items": [
-                  {
-                    "type": "inputText",
-                    "keyboardType": "number",
-                    "font_size": 15,
-                    "font_weight": "normal",
-                    "maxLines": 1,
-                    "margins": {
-                      "left": 5,
-                      "right": 5
-                    },
-                    "#text": "OfficePhone"
-                  },
-                  {
-                    "type": "inputText",
-                    "keyboardType": "number",
-                    "font_size": 15,
-                    "font_weight": "normal",
-                    "maxLines": 1,
-                    "margins": {
-                      "left": 5,
-                      "right": 5
-                    },
-                    "#text": "OtherPhone"
-                  }
-                ]
-              },
-              {
-                "type": "inputText",
-                "keyboardType": "text",
-                "font_size": 15,
-                "font_weight": "normal",
-                "maxLines": 1,
-                "margins": {
-                  "left": 5,
-                  "right": 5
-                },
-                "#text": "email"
-              }
-            ]
-          },
-          {
-            "type": "boxContainer",
-            "paddings": {
-              "bottom": 3,
-              "top": 10,
-              "left": 5,
-              "right": 5
-            },
-            "contentHeight": "wrap",
-            "items": [
-              {
-                "type": "text",
-                "font_size": 20,
-                "font_weight": "semi-bold",
-                "bgColor": "#b6a9c2",
-                "margins": {
-                  "right": 5,
-                  "top": 3,
-                  "bottom": 3
-                },
-                "#text": "address"
-              },
-              {
-                "type": "inputText",
-                "keyboardType": "text",
-                "font_size": 15,
-                "font_weight": "normal",
-                "maxLines": 1,
-                "isRequired": true,
-                "margins": {
-                  "left": 5,
-                  "right": 5
-                },
-                "#text": "street"
-              },
-              {
-                "type": "horizontalContainer",
-                "items": [
-                  {
-                    "type": "inputText",
-                    "keyboardType": "text",
-                    "font_size": 15,
-                    "font_weight": "normal",
-                    "maxLines": 1,
-                    "isRequired": true,
-                    "margins": {
-                      "left": 5,
-                      "right": 5
-                    },
-                    "#text": "area"
-                  },
-                  {
-                    "type": "inputText",
-                    "keyboardType": "text",
-                    "font_size": 15,
-                    "font_weight": "normal",
-                    "maxLines": 1,
-                    "isRequired": true,
-                    "margins": {
-                      "left": 5,
-                      "right": 5
-                    },
-                    "#text": "postalcode"
-                  }
-                ]
-              },
-              {
-                "type": "horizontalContainer",
-                "items": [
-                  {
-                    "type": "inputText",
-                    "keyboardType": "text",
-                    "font_size": 15,
-                    "font_weight": "normal",
-                    "maxLines": 1,
-                    "isRequired": true,
-                    "margins": {
-                      "left": 5,
-                      "right": 5
-                    },
-                    "#text": "city"
-                  },
-                  {
-                    "type": "inputText",
-                    "keyboardType": "text",
-                    "font_size": 15,
-                    "font_weight": "normal",
-                    "maxLines": 1,
-                    "isRequired": true,
-                    "margins": {
-                      "left": 5,
-                      "right": 5
-                    },
-                    "#text": "district"
-                  }
-                ]
-              },
-              {
-                "type": "horizontalContainer",
-                "items": [
-                  {
-                    "type": "inputText",
-                    "keyboardType": "text",
-                    "font_size": 15,
-                    "font_weight": "normal",
-                    "maxLines": 1,
-                    "isRequired": true,
-                    "margins": {
-                      "left": 5,
-                      "right": 5
-                    },
-                    "#text": "state"
-                  },
-                  {
-                    "type": "inputText",
-                    "keyboardType": "text",
-                    "font_size": 15,
-                    "font_weight": "normal",
-                    "maxLines": 1,
-                    "isRequired": true,
-                    "margins": {
-                      "left": 5,
-                      "right": 5
-                    },
-                    "#text": "country"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "boxContainer",
-            "paddings": {
-              "bottom": 3,
-              "top": 10,
-              "left": 5,
-              "right": 5
-            },
-            "contentHeight": "wrap",
-            "items": [
-              {
-                "type": "text",
-                "font_size": 20,
-                "font_weight": "semi-bold",
-                "bgColor": "#b6a9c2",
-                "margins": {
-                  "right": 5,
-                  "top": 3,
-                  "bottom": 10
-                },
-                "#text": "other"
-              },
-              {
-                "type": "dropdown",
-                "font_size": 15,
-                "font_weight": "normal",
-                "margins": {
-                  "left": 5,
-                  "right": 5,
-                  "bottom": 3
-                },
-                "options" : [
-                  "Type1","Type2","Type3","Type4"
-                ],
-                "isRequired": true,
-                "#text": "other-type"
-              },
-              {
-                "type": "dropdown",
-                "font_size": 15,
-                "font_weight": "normal",
-                "margins": {
-                  "left": 5,
-                  "right": 5,
-                  "bottom": 3
-                },
-                "isRequired": true,
-                "options" : [
-                  "SubType1","SubType2","SubType3","SubType4"
-                ],
-                "#text": "other-subtype"
-              },
-              {
-                "type": "dropdown",
-                "font_size": 15,
-                "font_weight": "normal",
-                "margins": {
-                  "left": 5,
-                  "right": 5,
-                  "bottom": 3
-                },
-                "options" : [
-                  "Entity1","Entity2","Entity3","Entity4"
-                ],
-                "#text": "other-entitytype"
-              },
-              {
-                "type": "dropdown",
-                "font_size": 15,
-                "font_weight": "normal",
-                "margins": {
-                  "left": 5,
-                  "right": 5,
-                  "bottom": 5
-                },
-                "isRequired": true,
-                "options" : [
-                  "Entity1","Entity2","Entity3","Entity4"
-                ],
-                "#text": "other-businessnature"
-              }
-            ]
+            "elevated": "submit"
           }
         ]
-      }
-    ]
-  },
-  "card": {
-    "items": [
-      {
-        "type": "SignUpPage",
-        "basicInfo": "Basic Information",
-        "gstr": "GSTR",
-        "AccName": "Account Name",
-        "OfficePhone": "Office Phone",
-        "OtherPhone": "Other Phone",
-        "email": "Any Email",
-        "address": "Address",
-        "street": "Street",
-        "area": "Area",
-        "postalcode": "Postal Code",
-        "city": "City",
-        "district": "District",
-        "state": "State",
-        "country": "Country",
-        "other": "Other",
-        "other-type": "Type",
-        "other-subtype": "Sub Type",
-        "other-entitytype": "Type of Entity",
-        "other-businessnature": "Nature of Business"
       },
-      {
-        "type": "button",
-        "subtype": "elevated",
-        "font_size": 25,
-        "font_weight": "normal",
-        "action": {
-          "type": "dialog",
-          "subtype": "simple",
-          "title": "NewUser Data",
-          "message": "{{newUserData}}"
-        },
-        "margins": {
-          "bottom": 16,
-          "top": 10,
-          "left": 20,
-          "right": 20
-        },
-        "backgroundColor": "#0f0f0f",
-        "#text": "Save"
-      }
-    ]
+      "bottomBar": {
+      },
+      "children": [
+        {
+          "type": "SingleColumnLayout",
+          "padding": {
+            "top": 10
+          },
+          "children": [
+            {
+              "type": "boxContainer",
+              "bgColor": "#fae7e6",
+              "contentHeight": "wrap",
+              "children": [
+                {
+                  "type": "VerticalContainer",
+                  "padding": {
+                    "left": 10,
+                    "right": 10
+                  },
+                  "children": [
+                    {
+                      "type": "text",
+                      "font_size": 20,
+                      "font_weight": "semi-bold",
+                      "bgColor": "#b6a9c2",
+                      "padding": {
+                        "right": 5,
+                        "top": 3,
+                        "bottom": 3
+                      },
+                      "text": "Basic Information"
+                    },
+                    {
+                      "type": "SingleLineInputText",
+                      "id": "input1",
+                      "keyboardType": "text",
+                      "font_size": 15,
+                      "font_weight": "normal",
+                      "padding": {
+                        "left": 5,
+                        "right": 5
+                      },
+                      "text": "GSTR"
+                    },
+                    {
+                      "type": "SingleLineInputText",
+                      "id": "input2",
+                      "keyboardType": "text",
+                      "font_size": 15,
+                      "font_weight": "normal",
+                      "isRequired": true,
+                      "padding": {
+                        "left": 5,
+                        "right": 5
+                      },
+                      "text": "Account Name"
+                    },
+                    {
+                      "type": "SingleRowLayout",
+                      "children": [
+                        {
+                          "type": "SingleLineInputText",
+                          "id": "input3",
+                          "keyboardType": "number",
+                          "font_size": 15,
+                          "font_weight": "normal",
+                          "padding": {
+                            "left": 5,
+                            "right": 5
+                          },
+                          "text": "Office Phone"
+                        },
+                        {
+                          "type": "SingleLineInputText",
+                          "id": "input4",
+                          "keyboardType": "number",
+                          "font_size": 15,
+                          "font_weight": "normal",
+                          "padding": {
+                            "left": 5,
+                            "right": 5
+                          },
+                          "text": "Other Phone"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SingleLineInputText",
+                      "id": "input5",
+                      "keyboardType": "text",
+                      "font_size": 15,
+                      "font_weight": "normal",
+                      "padding": {
+                        "left": 5,
+                        "right": 5
+                      },
+                      "text": "Any Email"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "boxContainer",
+              "bgColor": "#fae7e6",
+              "contentHeight": "wrap",
+              "children": [
+                {
+                  "type": "VerticalContainer",
+                  "padding": {
+                    "left": 10,
+                    "right": 10
+                  },
+                  "children": [
+                    {
+                      "type": "text",
+                      "font_size": 20,
+                      "font_weight": "semi-bold",
+                      "bgColor": "#b6a9c2",
+                      "margins": {
+                        "right": 5,
+                        "top": 3,
+                        "bottom": 3
+                      },
+                      "text": "Address"
+                    },
+                    {
+                      "type": "SingleLineInputText",
+                      "id": "input6",
+                      "keyboardType": "text",
+                      "font_size": 15,
+                      "font_weight": "normal",
+                      "isRequired": true,
+                      "padding": {
+                        "left": 5,
+                        "right": 5
+                      },
+                      "text": "Street"
+                    },
+                    {
+                      "type": "SingleRowLayout",
+                      "children": [
+                        {
+                          "type": "SingleLineInputText",
+                          "id": "input7",
+                          "keyboardType": "text",
+                          "font_size": 15,
+                          "font_weight": "normal",
+                          "isRequired": true,
+                          "padding": {
+                            "left": 5,
+                            "right": 5
+                          },
+                          "text": "Area"
+                        },
+                        {
+                          "type": "SingleLineInputText",
+                          "id": "input8",
+                          "keyboardType": "text",
+                          "font_size": 15,
+                          "font_weight": "normal",
+                          "isRequired": true,
+                          "padding": {
+                            "left": 5,
+                            "right": 5
+                          },
+                          "text": "Postal Code"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SingleRowLayout",
+                      "children": [
+                        {
+                          "type": "SingleLineInputText",
+                          "id": "input9",
+                          "keyboardType": "text",
+                          "font_size": 15,
+                          "font_weight": "normal",
+                          "isRequired": true,
+                          "padding": {
+                            "left": 5,
+                            "right": 5
+                          },
+                          "text": "City"
+                        },
+                        {
+                          "type": "SingleLineInputText",
+                          "id": "input10",
+                          "keyboardType": "text",
+                          "font_size": 15,
+                          "font_weight": "normal",
+                          "isRequired": true,
+                          "padding": {
+                            "left": 5,
+                            "right": 5
+                          },
+                          "text": "District"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SingleRowLayout",
+                      "children": [
+                        {
+                          "type": "SingleLineInputText",
+                          "id": "input11",
+                          "keyboardType": "text",
+                          "font_size": 15,
+                          "font_weight": "normal",
+                          "isRequired": true,
+                          "padding": {
+                            "left": 5,
+                            "right": 5
+                          },
+                          "text": "State"
+                        },
+                        {
+                          "type": "SingleLineInputText",
+                          "id": "input12",
+                          "keyboardType": "text",
+                          "font_size": 15,
+                          "font_weight": "normal",
+                          "isRequired": true,
+                          "padding": {
+                            "left": 5,
+                            "right": 5
+                          },
+                          "text": "Country"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "boxContainer",
+              "bgColor": "#fae7e6",
+              "contentHeight": "wrap",
+              "children": [
+                {
+                  "type": "VerticalContainer",
+                  "padding": {
+                    "left": 10,
+                    "right": 10
+                  },
+                  "children": [
+                    {
+                      "type": "text",
+                      "font_size": 20,
+                      "font_weight": "semi-bold",
+                      "bgColor": "#b6a9c2",
+                      "padding": {
+                        "right": 5,
+                        "top": 3,
+                        "bottom": 10
+                      },
+                      "text": "Other"
+                    },
+                    {
+                      "type": "dropdown",
+                      "id": "dropdown1",
+                      "font_size": 15,
+                      "font_weight": "normal",
+                      "padding": {
+                        "left": 5,
+                        "right": 5,
+                        "bottom": 3
+                      },
+                      "options": [
+                        "Type1",
+                        "Type2",
+                        "Type3",
+                        "Type4"
+                      ],
+                      "isRequired": true,
+                      "text": "Type"
+                    },
+                    {
+                      "type": "dropdown",
+                      "id": "dropdown2",
+                      "font_size": 15,
+                      "font_weight": "normal",
+                      "padding": {
+                        "left": 5,
+                        "right": 5,
+                        "bottom": 3
+                      },
+                      "isRequired": true,
+                      "options": [
+                        "SubType1",
+                        "SubType2",
+                        "SubType3",
+                        "SubType4"
+                      ],
+                      "text": "Sub Type"
+                    },
+                    {
+                      "type": "dropdown",
+                      "id": "dropdown3",
+                      "font_size": 15,
+                      "font_weight": "normal",
+                      "padding": {
+                        "left": 5,
+                        "right": 5,
+                        "bottom": 3
+                      },
+                      "options": [
+                        "Entity1",
+                        "Entity2",
+                        "Entity3",
+                        "Entity4"
+                      ],
+                      "text": "Type of Entity"
+                    },
+                    {
+                      "type": "dropdown",
+                      "id": "dropdown4",
+                      "font_size": 15,
+                      "font_weight": "normal",
+                      "padding": {
+                        "left": 5,
+                        "right": 5,
+                        "bottom": 5
+                      },
+                      "isRequired": true,
+                      "options": [
+                        "Entity1",
+                        "Entity2",
+                        "Entity3",
+                        "Entity4"
+                      ],
+                      "text": "Nature of Business"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   }
 }

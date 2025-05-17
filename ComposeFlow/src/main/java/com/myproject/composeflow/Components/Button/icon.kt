@@ -52,8 +52,10 @@ fun ButtonIcon(
             contentDescription = label,
             modifier = Modifier.size(25.dp)
         )
-        Text(
-            text = label ?: "",
-        )
+        if (label != null) {
+            Text(
+                text = label,
+            )
+        }
     }
 }

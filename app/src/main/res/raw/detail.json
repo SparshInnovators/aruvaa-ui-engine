@@ -1,0 +1,162 @@
+{
+  "version": "1.0.0",
+  "Screen": {
+    "ScreenId": "04_detail",
+    "ScreenName": "Details Screen",
+    "layout": {
+      "type": "ScaffoldLayout",
+      "padding": {
+        "left": 5,
+        "right": 5,
+        "bottom": 10
+      },
+      "topBar": {
+        "type": "DynamicTopBar",
+        "content": {
+          "type": "VerticalContainer",
+          "wrapContentHeight": true,
+          "children": [
+            {
+              "type": "BoxContainer",
+              "wrapContentHeight": true,
+              "backgroundColor": "#166df7",
+              "padding": {
+                "bottom": 10
+              },
+              "children": [
+                {
+                  "type": "VerticalContainer",
+                  "padding": {
+                    "top": 5
+                  },
+                  "wrapContentHeight": true,
+                  "children": [
+                    {
+                      "type": "button",
+                      "subtype": "icon",
+                      "icon": "arrow_back",
+                      "action": {
+                        "type": ""
+                      }
+                    },
+                    {
+                      "type": "SingleRowLayout",
+                      "padding": 10,
+                      "children": [
+                        {
+                          "type": "image",
+                          "image_url": "https://img.freepik.com/premium-photo/neon-green-background-clean-no-texture-no-noise-grunge-empty-blank-copy-space-mockup-seamless_941600-69798.jpg?semt=ais_hybrid",
+                          "padding": {
+                            "bottom": 10
+                          },
+                          "height": 80
+                        },
+                        {
+                          "type": "SingleColumnLayout",
+                          "padding": {
+                            "left": 10
+                          },
+                          "children": [
+                            {
+                              "type": "text",
+                              "font_size": 20,
+                              "font_weight": "bold",
+                              "padding": {
+                                "top": 10
+                              },
+                              "$text": "name"
+                            },
+                            {
+                              "type": "text",
+                              "$text": "Assigned"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BoxContainer",
+              "wrapContentHeight": true,
+              "backgroundColor": "#96b7eb",
+              "children": [
+                {
+                  "type": "SingleRowLayout",
+                  "padding": {
+                    "right": 10
+                  },
+                  "children": [
+                    {
+                      "type": "button",
+                      "subtype": "icon",
+                      "icon": "whatsapp",
+                      "action": {
+                        "type": ""
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "subtype": "icon",
+                      "icon": "phone",
+                      "action": {
+                        "type": ""
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "subtype": "icon",
+                      "icon": "message",
+                      "action": {
+                        "type": ""
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "subtype": "icon",
+                      "icon": "email",
+                      "action": {
+                        "type": ""
+                      }
+                    },
+                    {
+                      "type": "button",
+                      "subtype": "icon",
+                      "icon": "location",
+                      "action": {
+                        "type": ""
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "bottomBar": {
+      },
+      "children": [
+        {
+          "type": "horizontalTabs",
+          "tabs": [
+            {
+              "title": "DETAILS",
+              "onclick": "aruvaa/tabs/0/01_detail_tab"
+            },
+            {
+              "title": "ACTIVITIES",
+              "onclick": "aruvaa/tabs/1/02_activities_tab"
+            },
+            {
+              "title": "RELATED",
+              "onclick": "aruvaa/tabs/2/03_related_tab"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
