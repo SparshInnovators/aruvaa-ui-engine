@@ -15,7 +15,6 @@ import com.myproject.testingframework.model.database.DataEntity
 import com.myproject.testingframework.model.database.Repository.DbRepository
 import com.myproject.testingframework.model.myapi.MyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -25,7 +24,7 @@ import javax.inject.Inject
 class MyViewModel @Inject constructor(
     private val repo: DbRepository,
     private val repo2: MyRepository,
-    @ApplicationContext private val context: Context
+    private val context: Context
 ) : BaseViewModel() {
 
     //example
